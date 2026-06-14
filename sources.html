@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Источники — Точно не новости</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.sources-hero {
+  background: var(--tv); padding: 120px 0 64px;
+  position: relative; overflow: hidden;
+}
+.sources-hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 50% at 90% 40%, rgba(0,212,204,.07) 0%, transparent 60%);
+}
+.sources-hero h1 {
+  font-family: var(--f-d); font-size: clamp(36px,6vw,64px);
+  font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 16px;
+}
+.sources-hero p { font-size: 18px; color: rgba(255,255,255,.55); max-width: 560px; line-height: 1.7; }
+
+/* Filter tabs */
+.filter-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin: 40px 0 32px;
+}
+.ftab {
+  font-family: var(--f-d); font-size: 12px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 9px 18px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--muted);
+  transition: all .2s; cursor: pointer; background: var(--white);
+}
+.ftab:hover { border-color: var(--ink); color: var(--ink); }
+.ftab.active { background: var(--tv); color: var(--white); border-color: var(--tv); }
+
+/* Sources grid */
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+  gap: 16px; margin-bottom: 64px;
+}
+.src-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 22px 24px;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.src-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.08); }
+.src-author {
+  font-family: var(--f-d); font-size: 15px; font-weight: 800;
+  color: var(--ink); margin-bottom: 4px;
+}
+.src-work {
+  font-size: 14px; color: var(--tv); font-style: italic;
+  margin-bottom: 10px; line-height: 1.4;
+}
+.src-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+.src-tag {
+  display: inline-block; font-family: var(--f-d); font-size: 10px;
+  font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 10px;
+}
+.src-tag.manip { background: rgba(11,15,46,.08); color: var(--tv); }
+.src-tag.fake  { background: rgba(192,57,43,.08); color: var(--red); }
+.src-tag.both  { background: rgba(0,212,204,.1);  color: #006660; }
+
+/* About section */
+.about-sources {
+  background: var(--cream); border: 1px solid var(--border);
+  border-radius: 16px; padding: 40px 44px; margin-bottom: 48px;
+}
+.about-sources h2 {
+  font-family: var(--f-d); font-size: 22px; font-weight: 800;
+  margin-bottom: 16px;
+}
+.about-sources p { font-size: 15px; color: #3A3A3A; line-height: 1.8; margin-bottom: 12px; }
+.about-sources p:last-child { margin-bottom: 0; }
+
+/* Stats row */
+.src-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 16px; margin-bottom: 48px;
+}
+.src-stat {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px 22px; text-align: center;
+}
+.src-stat-num {
+  font-family: var(--f-d); font-size: 36px; font-weight: 900;
+  color: var(--tv); line-height: 1;
+}
+.src-stat-label { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+@media (max-width: 768px) {
+  .src-stats { grid-template-columns: 1fr 1fr; }
+  .about-sources { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div id="nav-ph"></div>
+
+<div class="sources-hero">
+  <div class="sources-hero-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="eyebrow gold">Научная база</span>
+    <h1>Источники проекта</h1>
+    <p>Все темы «Точно не новостей» опираются на работы исследователей медиа, журналистики и когнитивной психологии. Здесь — полный список с кратким описанием каждой работы.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <div class="about-sources">
+      <h2>Как мы работаем с источниками</h2>
+      <p>Проект «Точно не новости» строится на двух типах источников. Первый — классические академические работы, заложившие теоретическую основу медиаисследований: МакКомбс и Шоу по повестке дня (1972), Энтман по фреймингу (1993), Пропп по нарративу (1928). Эти работы дают концептуальный аппарат для понимания механизмов медиавоздействия.</p>
+      <p>Второй тип — исследования, посвящённые непосредственно феномену дезинформации и фейков: Ильченко С.Н. по типологии фейков в электронных СМИ, Уордл по классификации информационного расстройства, Восуги, Рой и Арал по скорости распространения ложных новостей. Эти работы дают инструментарий для анализа конкретных механизмов производства и распространения фейков.</p>
+      <p>Теоретические страницы проекта переводят академические концепции на язык сказочных примеров — так, чтобы механизмы были видны без специального образования.</p>
+    </div>
+
+    <div class="src-stats">
+      <div class="src-stat">
+        <div class="src-stat-num">20</div>
+        <div class="src-stat-label">научных работ в базе проекта</div>
+      </div>
+      <div class="src-stat">
+        <div class="src-stat-num">8</div>
+        <div class="src-stat-label">авторов по теме фейков</div>
+      </div>
+      <div class="src-stat">
+        <div class="src-stat-num">10</div>
+        <div class="src-stat-label">авторов по теме манипуляций</div>
+      </div>
+      <div class="src-stat">
+        <div class="src-stat-num">1928</div>
+        <div class="src-stat-label">год самой ранней работы — Пропп</div>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <button class="ftab active" onclick="filterSrc('all', this)">Все источники</button>
+      <button class="ftab" onclick="filterSrc('manip', this)">Блок 1 · Манипуляции</button>
+      <button class="ftab" onclick="filterSrc('fake', this)">Блок 2 · Фейки</button>
+      <button class="ftab" onclick="filterSrc('both', this)">Оба блока</button>
+    </div>
+
+    <div class="sources-grid" id="srcGrid"></div>
+
+    <!-- Link to theory -->
+    <div style="text-align:center; padding-top:16px; border-top:1px solid var(--border);">
+      <p style="color:var(--muted); font-size:15px; margin-bottom:20px;">Хотите увидеть, как эти источники применяются в конкретных темах проекта?</p>
+      <a href="index.html#study" class="btn btn-dark">Перейти к теоретическим разборам →</a>
+    </div>
+
+  </div>
+</section>
+
+<div id="footer-ph"></div>
+
+<script src="shared.js"></script>
+<script>
+document.getElementById('nav-ph').innerHTML = renderNav('Источники');
+document.getElementById('footer-ph').innerHTML = renderFooter();
+
+const tagLabel = { manip:'Блок 1 · Манипуляции', fake:'Блок 2 · Фейки', both:'Оба блока' };
+
+function renderSrc(list) {
+  document.getElementById('srcGrid').innerHTML = list.map(s => `
+    <div class="src-card" data-tag="${s.tag}">
+      <div class="src-author">${s.author}</div>
+      <div class="src-work">${s.work}</div>
+      <div class="src-desc">${s.desc}</div>
+      <span class="src-tag ${s.tag}">${tagLabel[s.tag]}</span>
+    </div>
+  `).join('');
+}
+
+function filterSrc(tag, btn) {
+  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const list = tag === 'all' ? SOURCES : SOURCES.filter(s => s.tag === tag || s.tag === 'both');
+  renderSrc(list);
+}
+
+renderSrc(SOURCES);
+</script>
+</body>
+</html>

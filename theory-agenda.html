@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Повестка дня — Для изучения — Точно не новости</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.theory-hero {
+  background: var(--tv); padding: 120px 0 64px;
+  position: relative; overflow: hidden;
+}
+.theory-hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(201,168,76,.1) 0%, transparent 65%);
+}
+.theory-breadcrumb {
+  font-family: var(--f-d); font-size: 12px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 20px;
+}
+.theory-breadcrumb a { color: rgba(255,255,255,.35); transition: color .2s; }
+.theory-breadcrumb a:hover { color: var(--gold); }
+.theory-breadcrumb span { color: var(--gold); }
+.theory-hero-label {
+  font-family: var(--f-d); font-size: 11px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; display: block;
+}
+.theory-hero h1 {
+  font-family: var(--f-d); font-size: clamp(36px,6vw,64px);
+  font-weight: 900; color: var(--white); line-height: 1.1;
+  margin-bottom: 20px;
+}
+.theory-hero-fairy {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.25);
+  border-radius: 20px; padding: 6px 14px;
+  font-size: 13px; color: var(--gold-lt); margin-bottom: 24px;
+}
+.theory-hero-desc {
+  font-size: 18px; color: rgba(255,255,255,.65);
+  max-width: 580px; line-height: 1.7;
+}
+.theory-nav {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 40px;
+}
+.theory-nav-btn {
+  font-family: var(--f-d); font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 8px 16px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.45);
+  transition: all .2s; background: rgba(255,255,255,.05);
+}
+.theory-nav-btn:hover, .theory-nav-btn.active {
+  background: var(--gold); color: var(--tv);
+  border-color: var(--gold);
+}
+
+/* Body layout */
+.theory-body-wrap {
+  display: grid; grid-template-columns: 1fr 340px;
+  gap: 64px; align-items: start; padding: 80px 0;
+}
+.theory-text h2 {
+  font-family: var(--f-d); font-size: 28px; font-weight: 800;
+  margin: 48px 0 16px; line-height: 1.2;
+}
+.theory-text h2:first-child { margin-top: 0; }
+.theory-text p {
+  font-size: 16px; line-height: 1.8; color: #2E2E2E;
+  margin-bottom: 16px;
+}
+.theory-text em { font-style: italic; color: var(--tv); font-weight: 600; }
+.theory-text blockquote {
+  border-left: 3px solid var(--gold); padding: 16px 24px;
+  background: rgba(201,168,76,.07); border-radius: 0 10px 10px 0;
+  margin: 24px 0; font-size: 15px; color: #3A3A3A;
+  font-style: italic; line-height: 1.7;
+}
+.theory-text blockquote cite {
+  display: block; margin-top: 10px; font-style: normal;
+  font-size: 13px; color: var(--muted); font-family: var(--f-d);
+  font-weight: 700;
+}
+
+/* Mechanism box */
+.mechanism {
+  background: var(--tv); border-radius: 16px; padding: 32px;
+  margin: 32px 0;
+}
+.mechanism-title {
+  font-family: var(--f-d); font-size: 13px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+}
+.mech-step {
+  display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start;
+}
+.mech-step:last-child { margin-bottom: 0; }
+.mech-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gold); color: var(--tv);
+  font-family: var(--f-d); font-size: 12px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.mech-text { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.6; }
+.mech-text strong { color: var(--white); }
+
+/* Episode examples */
+.ep-examples { margin: 40px 0; }
+.ep-examples-title {
+  font-family: var(--f-d); font-size: 14px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+.ep-ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Compare table */
+.compare-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.compare-table th {
+  font-family: var(--f-d); font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--border);
+}
+.compare-table th.tv { color: var(--tv); }
+.compare-table th.gl { color: #006660; }
+.compare-table td {
+  padding: 12px 16px; font-size: 14px; color: #2E2E2E;
+  border-bottom: 1px solid var(--border); vertical-align: top;
+  line-height: 1.55;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:nth-child(even) td { background: rgba(0,0,0,.02); }
+
+/* Sidebar */
+.theory-sidebar { position: sticky; top: 88px; }
+.sidebar-block {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px; margin-bottom: 16px;
+}
+.sidebar-title {
+  font-family: var(--f-d); font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+.source-item {
+  padding: 12px 14px; background: var(--cream); border-radius: 8px;
+  margin-bottom: 8px; font-size: 13px; line-height: 1.5;
+}
+.source-item:last-child { margin-bottom: 0; }
+.source-item strong { display: block; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.source-item span { color: var(--muted); font-style: italic; }
+.key-terms { display: flex; flex-direction: column; gap: 8px; }
+.term {
+  padding: 10px 14px; border-left: 3px solid var(--gold);
+  background: rgba(201,168,76,.06); border-radius: 0 8px 8px 0;
+  font-size: 13px; line-height: 1.5;
+}
+.term strong { display: block; font-weight: 700; color: var(--ink); margin-bottom: 2px; font-size: 12px; font-family: var(--f-d); letter-spacing: .05em; text-transform: uppercase; }
+.term span { color: var(--muted); }
+.other-themes { display: flex; flex-direction: column; gap: 8px; }
+.other-theme-link {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 13px; color: var(--ink); transition: all .2s;
+}
+.other-theme-link:hover { border-color: var(--tv); background: rgba(11,15,46,.04); }
+.other-theme-link .ot-icon { font-size: 18px; }
+.other-theme-link .ot-title { font-family: var(--f-d); font-size: 13px; font-weight: 600; }
+
+@media (max-width: 900px) {
+  .theory-body-wrap { grid-template-columns: 1fr; }
+  .theory-sidebar { position: static; }
+  .ep-ex-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<!-- HERO -->
+<div class="theory-hero">
+  <div class="theory-hero-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div id="back-btn-ph"></div>
+    <div class="theory-breadcrumb">
+      <a href="index.html">Главная</a> / <a href="index.html#study">Для изучения</a> / <span>Повестка дня</span>
+    </div>
+    <span class="theory-hero-label">Блок 1 · Манипуляции · Тема 1 из 5</span>
+    <h1>Повестка дня</h1>
+    <div class="theory-hero-fairy">📖 Красная Шапочка · 4 эпизода</div>
+    <p class="theory-hero-desc">Медиа не говорят нам что думать — они говорят нам о чём думать. Выбор того, какое событие становится главным, уже является редакционным решением с последствиями.</p>
+    <nav class="theory-nav">
+      <a href="theory-agenda.html"    class="theory-nav-btn active">📋 Повестка дня</a>
+      <a href="theory-framing.html"   class="theory-nav-btn">🖼️ Фрейминг</a>
+      <a href="theory-narrative.html" class="theory-nav-btn">🦸 Нарратив</a>
+      <a href="theory-emotion.html"   class="theory-nav-btn">❤️ Эмоция</a>
+      <a href="theory-source.html"    class="theory-nav-btn">🎙️ Источник</a>
+    </nav>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="container">
+  <div class="theory-body-wrap">
+
+    <!-- MAIN TEXT -->
+    <div class="theory-text">
+
+      <h2>Что такое повестка дня</h2>
+      <p>В 1972 году американские исследователи Максуэлл МакКомбс и Дональд Шоу опубликовали работу, которая изменила понимание того, как работают масс-медиа. Они наблюдали за президентскими выборами в США и обнаружили удивительную закономерность: темы, которые СМИ освещали активнее всего, воспринимались избирателями как наиболее важные — вне зависимости от того, действительно ли эти темы были объективно значимыми.</p>
+      <p>Так родилась теория установления повестки дня. Её ключевая идея проста и одновременно революционна: <em>медиа не говорят нам что думать — они говорят нам о чём думать</em>. Издание не навязывает нам мнение напрямую. Вместо этого оно определяет, какие события вообще существуют в нашей картине мира, а какие остаются невидимыми.</p>
+
+      <blockquote>
+        «Пресса не может успешно указывать людям, что думать, но она чрезвычайно успешна в указании своим читателям, о чём думать.»
+        <cite>— Бернард Коэн, «Пресса и внешняя политика», 1963</cite>
+      </blockquote>
+
+      <h2>Как это работает на практике</h2>
+      <p>Представьте, что сегодня в городе произошли два события: задержан преступник и обнаружен системный сбой в работе городской охраны. Оба события реальны. Оба касаются одного и того же инцидента. Но одно издание делает главным заголовком дня «преступник задержан», а другое — «система дала сбой». Ни одно из них не лжёт. Но каждое формирует принципиально разную картину реальности.</p>
+      <p>Именно это и называется установлением повестки дня: редакция решает, <em>что именно становится событием</em>, какой аспект ситуации заслуживает внимания, а какой остаётся за кадром. Эти решения принимаются каждый раз, когда журналист садится писать материал.</p>
+
+      <div class="mechanism">
+        <div class="mechanism-title">Механизм повестки дня — как он работает</div>
+        <div class="mech-step">
+          <div class="mech-num">1</div>
+          <div class="mech-text"><strong>Событие происходит.</strong> В реальности всегда несколько аспектов одновременно — угроза, реакция, последствия, контекст, виновные, пострадавшие.</div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-num">2</div>
+          <div class="mech-text"><strong>Редакция выбирает угол.</strong> Какой аспект становится заголовком? Это решение принимается исходя из редакционной политики, аудитории, источников и десятков других факторов.</div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-num">3</div>
+          <div class="mech-text"><strong>Остальное уходит на второй план или исчезает.</strong> То, о чём не написали, для большинства читателей не существует. Медиареальность формируется из того, что попало в повестку.</div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-num">4</div>
+          <div class="mech-text"><strong>Аудитория воспринимает это как полную картину.</strong> Читатель не знает о том, чего не увидел. Именно поэтому установление повестки работает незаметно.</div>
+        </div>
+      </div>
+
+      <h2>Красная Шапочка: одно событие, две повестки</h2>
+      <p>В проекте «Точно не новости» механизм повестки дня показан через четыре эпизода с Красной Шапочкой. Событие одно: девочка шла через лес, её встретил волк, дровосеки успели вовремя, все живы. Но Тридевятый вестник и Первый глашатай делают главным разное — и в результате зритель, посмотревший оба выпуска, видит два принципиально разных «события».</p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Аспект</th>
+            <th class="tv">Тридевятый вестник</th>
+            <th class="gl">Первый глашатай</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Главное событие дня</td>
+            <td>Задержание волка и успешная работа стражи</td>
+            <td>Ребёнок шёл через лес один без сопровождения</td>
+          </tr>
+          <tr>
+            <td>Кто в центре внимания</td>
+            <td>Дровосеки и лесная стража</td>
+            <td>Мать девочки и система охраны тропы</td>
+          </tr>
+          <tr>
+            <td>Что происходит с повесткой</td>
+            <td>Закрывается: «инцидент исчерпан, порядок восстановлен»</td>
+            <td>Расширяется: «когда последний раз проверяли тропу?»</td>
+          </tr>
+          <tr>
+            <td>Что остаётся за кадром</td>
+            <td>Вопросы о системе безопасности и предупреждениях соседей</td>
+            <td>Успешная работа дровосеков и конкретные действия стражи</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Почему повестка закрывается</h2>
+      <p>Один из самых интересных аспектов теории повестки дня — это не только то, о чём СМИ пишут, но и то, как они тему закрывают. Пьер Бурдьё в «О телевидении» показал: новостные медиа работают в режиме постоянного обновления. Вчерашняя история заменяется сегодняшней. Это создаёт системный эффект: как только тема уходит из повестки, она перестаёт существовать для аудитории — вне зависимости от того, решена ли реальная проблема.</p>
+      <p>Тридевятый вестник в третьем эпизоде делает именно это: публикует итоговый материал, который объявляет историю закрытой. «Инцидент исчерпан. Повестка закрыта». При этом вопросы, которые поднял Глашатай — о системе безопасности, о предупреждениях соседей, о плановых обходах — никуда не делись. Просто их больше нет в повестке.</p>
+
+      <h2>Как распознать установление повестки</h2>
+      <p>Навык распознавания повестки дня начинается с простого вопроса: <em>что здесь не написано?</em> Когда вы читаете любой материал, попробуйте задать себе несколько вопросов. Почему именно этот аспект событий стал заголовком? Кто выиграет от того, что внимание сосредоточено именно здесь? Какие вопросы в этом материале не задаются? Что произошло, прежде чем началось то, о чём рассказывает материал?</p>
+      <p>Это не означает, что каждое издание намеренно манипулирует аудиторией. Чаще всего редакционный выбор продиктован искренними представлениями о том, что важно. Но независимо от намерений, результат один: одни аспекты реальности становятся видимыми, другие — нет.</p>
+
+      <div class="ep-examples">
+        <div class="ep-examples-title">Эпизоды по этой теме</div>
+        <div class="ep-ex-grid" id="epGrid"></div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="theory-sidebar">
+
+      <div class="sidebar-block">
+        <div class="sidebar-title">Ключевые источники</div>
+        <div class="source-item">
+          <strong>McCombs & Shaw (1972)</strong>
+          <span>«The Agenda-Setting Function of Mass Media» — Public Opinion Quarterly. Основополагающая работа по теории повестки дня.</span>
+        </div>
+        <div class="source-item">
+          <strong>Бурдьё П. (1996)</strong>
+          <span>«О телевидении» — рус. пер. 2002. О механизмах отбора и закрытия новостной повестки.</span>
+        </div>
+        <div class="source-item">
+          <strong>Малькова В.К. (2005)</strong>
+          <span>«СМИ и межнациональные отношения» — о практике повестки дня в российской прессе.</span>
+        </div>
+        <div class="source-item">
+          <strong>Cohen B. (1963)</strong>
+          <span>«The Press and Foreign Policy» — первая формулировка принципа «о чём думать».</span>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-title">Ключевые термины</div>
+        <div class="key-terms">
+          <div class="term">
+            <strong>Agenda-setting</strong>
+            <span>Установление повестки дня — способность медиа определять, какие темы считаются важными в обществе.</span>
+          </div>
+          <div class="term">
+            <strong>Медиареальность</strong>
+            <span>Картина мира, формируемая СМИ — не тождественная реальности, но влияющая на её восприятие.</span>
+          </div>
+          <div class="term">
+            <strong>Замалчивание</strong>
+            <span>Намеренное или непреднамеренное исключение темы или аспекта из повестки издания.</span>
+          </div>
+          <div class="term">
+            <strong>Закрытие повестки</strong>
+            <span>Редакционное решение объявить тему исчерпанной вне зависимости от реального развития ситуации.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-title">Другие темы</div>
+        <div class="other-themes">
+          <a href="theory-framing.html" class="other-theme-link">
+            <span class="ot-icon">🖼️</span>
+            <span class="ot-title">Фрейминг</span>
+          </a>
+          <a href="theory-narrative.html" class="other-theme-link">
+            <span class="ot-icon">🦸</span>
+            <span class="ot-title">Нарратив: герой и злодей</span>
+          </a>
+          <a href="theory-emotion.html" class="other-theme-link">
+            <span class="ot-icon">❤️</span>
+            <span class="ot-title">Эмоциональное воздействие</span>
+          </a>
+          <a href="theory-source.html" class="other-theme-link">
+            <span class="ot-icon">🎙️</span>
+            <span class="ot-title">Источник и авторитет</span>
+          </a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<div id="footer-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.getElementById("nav-ph").innerHTML = renderNav("Для изучения");
+document.getElementById("back-btn-ph").innerHTML = renderBackBtn("Для изучения", "index.html#study");
+document.getElementById('footer-ph').innerHTML = renderFooter();
+const eps = EPISODES.filter(e => e.theme === 'agenda');
+document.getElementById('epGrid').innerHTML = eps.map(renderEpCard).join('');
+</script>
+</body>
+</html>
