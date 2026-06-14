@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emotional Impact — Study — Точно не новости</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ──────────────────────────────────────────────────────────────── */
+:root {
+  --tv:       #0B0F2E;
+  --tv-mid:   #1A2257;
+  --gold:     #C9A84C;
+  --gold-lt:  #F0D080;
+  --gl:       #0D0D0D;
+  --gl-mid:   #1E1E1E;
+  --cyan:     #00D4CC;
+  --cyan-lt:  #7FF0EB;
+  --red:      #C0392B;
+  --cream:    #F5F3EE;
+  --white:    #FFFFFF;
+  --ink:      #1A1A1A;
+  --muted:    #6B6B6B;
+  --border:   #E0DDD6;
+  --ease:     cubic-bezier(.4,0,.2,1);
+  --f-d:      'Manrope', sans-serif;
+  --f-b:      'Golos Text', sans-serif;
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-b);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ── NAV ─────────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(11,15,46,.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,168,76,.18);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px; gap: 24px;
+}
+.nav-logo {
+  font-family: var(--f-d); font-size: 15px; font-weight: 900;
+  letter-spacing: .04em; color: var(--white); white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-logo .ne { color: var(--red); }
+.nav-links {
+  display: flex; align-items: center; gap: 4px; list-style: none;
+  flex-wrap: nowrap;
+}
+.nav-links a {
+  font-family: var(--f-d); font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); padding: 6px 10px; border-radius: 6px;
+  transition: color .2s, background .2s; white-space: nowrap;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--white); background: rgba(255,255,255,.08); }
+.nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.lang-sw { display: flex; gap: 2px; }
+.lang-btn {
+  font-family: var(--f-d); font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); padding: 4px 8px; border-radius: 4px;
+  transition: color .2s, background .2s;
+}
+.lang-btn.active, .lang-btn:hover { color: var(--gold); background: rgba(201,168,76,.12); }
+
+/* ── BUTTONS ─────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-d); font-size: 13px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 8px;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-gold { background: var(--gold); color: var(--tv); box-shadow: 0 4px 24px rgba(201,168,76,.28); }
+.btn-gold:hover { box-shadow: 0 8px 32px rgba(201,168,76,.45); }
+.btn-ghost { background: rgba(255,255,255,.08); color: var(--white); border: 1px solid rgba(255,255,255,.18); }
+.btn-ghost:hover { background: rgba(255,255,255,.14); }
+.btn-dark { background: var(--tv); color: var(--white); }
+.btn-cyan { background: var(--cyan); color: var(--gl); }
+
+/* ── TYPOGRAPHY UTILS ────────────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--f-d); font-size: 11px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 12px; display: block;
+}
+.eyebrow.light { color: rgba(255,255,255,.4); }
+.eyebrow.gold  { color: var(--gold); }
+.eyebrow.cyan  { color: var(--cyan); }
+
+.display {
+  font-family: var(--f-d); font-weight: 800; line-height: 1.12;
+  font-size: clamp(32px, 5vw, 56px);
+}
+.display.light { color: var(--white); }
+
+.lead {
+  font-size: 18px; line-height: 1.75; color: #3A3A3A; max-width: 680px;
+}
+.lead.light { color: rgba(255,255,255,.6); }
+.lead p + p { margin-top: 14px; }
+
+/* ── LAYOUT ──────────────────────────────────────────────────────────────── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.section { padding: 88px 0; }
+.section-sm { padding: 56px 0; }
+
+/* ── CARDS ───────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,.09); }
+
+/* ── CHANNEL BADGE ───────────────────────────────────────────────────────── */
+.ch-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--f-d); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px;
+}
+.ch-badge.tv { background: rgba(11,15,46,.1); color: var(--tv); }
+.ch-badge.gl { background: rgba(0,212,204,.12); color: #006660; }
+.ch-dot { width: 6px; height: 6px; border-radius: 50%; }
+.ch-dot.tv { background: var(--gold); }
+.ch-dot.gl { background: var(--cyan); }
+
+/* ── EPISODE CARD ────────────────────────────────────────────────────────── */
+.ep-card .ep-head {
+  padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+}
+.ep-card .ep-head.tv { background: var(--tv); }
+.ep-card .ep-head.gl { background: var(--gl); }
+.ep-card .ep-ch {
+  font-family: var(--f-d); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.ep-card .ep-ch.tv { color: var(--gold); }
+.ep-card .ep-ch.gl { color: var(--cyan); }
+.ep-card .ep-num { font-size: 10px; color: rgba(255,255,255,.3); margin-left: auto; font-family: var(--f-d); }
+.ep-card .ep-body { padding: 16px; }
+.ep-card .ep-title {
+  font-family: var(--f-d); font-size: 14px; font-weight: 700;
+  line-height: 1.3; margin-bottom: 6px;
+}
+.ep-card .ep-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+.ep-card .ep-dur { font-size: 11px; color: var(--muted); font-family: var(--f-d); font-weight: 600; }
+
+/* ── DIVIDER ─────────────────────────────────────────────────────────────── */
+hr.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.footer {
+  background: var(--tv);
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 48px 40px;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-logo {
+  font-family: var(--f-d); font-size: 18px; font-weight: 900;
+  color: var(--white); margin-bottom: 10px;
+}
+.footer-logo .ne { color: var(--red); }
+.footer-tagline { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.6; }
+.footer-col h4 {
+  font-family: var(--f-d); font-size: 11px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 14px;
+}
+.footer-col a {
+  display: block; font-size: 13px; color: rgba(255,255,255,.55);
+  margin-bottom: 8px; transition: color .2s;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  max-width: 1100px; margin: 32px auto 0;
+  padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+.footer-copy { font-size: 12px; color: rgba(255,255,255,.25); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav { padding: 0 20px; }
+  .container { padding: 0 20px; }
+  .section { padding: 64px 0; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer { padding: 40px 20px; }
+}
+
+/* ── BACK BUTTON ─────────────────────────────────────────────────────────── */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-d); font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.5); padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,.15); border-radius: 20px;
+  background: rgba(255,255,255,.06);
+  transition: all .2s var(--ease);
+  margin-bottom: 28px; text-decoration: none; cursor: pointer;
+}
+.back-btn:hover {
+  color: var(--gold); border-color: rgba(201,168,76,.4);
+  background: rgba(201,168,76,.08);
+}
+
+</style>
+<style>
+.theory-hero{background:var(--tv);padding:120px 0 64px;position:relative;overflow:hidden}
+.theory-hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 80% 50%,rgba(201,168,76,.1) 0%,transparent 65%)}
+.theory-breadcrumb{font-family:var(--f-d);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:20px}
+.theory-breadcrumb a{color:rgba(255,255,255,.35);transition:color .2s}.theory-breadcrumb a:hover{color:var(--gold)}.theory-breadcrumb span{color:var(--gold)}
+.theory-hero-label{font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.theory-hero h1{font-family:var(--f-d);font-size:clamp(36px,6vw,64px);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:20px}
+.theory-hero-fairy{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:6px 14px;font-size:13px;color:var(--gold-lt);margin-bottom:24px}
+.theory-hero-desc{font-size:18px;color:rgba(255,255,255,.65);max-width:580px;line-height:1.7}
+.theory-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:40px}
+.theory-nav-btn{font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.45);transition:all .2s;background:rgba(255,255,255,.05)}
+.theory-nav-btn:hover,.theory-nav-btn.active{background:var(--gold);color:var(--tv);border-color:var(--gold)}
+.theory-body-wrap{display:grid;grid-template-columns:1fr 340px;gap:64px;align-items:start;padding:80px 0}
+.theory-text h2{font-family:var(--f-d);font-size:28px;font-weight:800;margin:48px 0 16px;line-height:1.2}.theory-text h2:first-child{margin-top:0}
+.theory-text p{font-size:16px;line-height:1.8;color:#2E2E2E;margin-bottom:16px}
+.theory-text em{font-style:italic;color:var(--tv);font-weight:600}
+.theory-text blockquote{border-left:3px solid var(--gold);padding:16px 24px;background:rgba(201,168,76,.07);border-radius:0 10px 10px 0;margin:24px 0;font-size:15px;color:#3A3A3A;font-style:italic;line-height:1.7}
+.theory-text blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:13px;color:var(--muted);font-family:var(--f-d);font-weight:700}
+.mechanism{background:var(--tv);border-radius:16px;padding:32px;margin:32px 0}
+.mechanism-title{font-family:var(--f-d);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.mech-step{display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}.mech-step:last-child{margin-bottom:0}
+.mech-num{width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--tv);font-family:var(--f-d);font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.mech-text{font-size:14px;color:rgba(255,255,255,.7);line-height:1.6}.mech-text strong{color:var(--white)}
+.ep-examples{margin:40px 0}
+.ep-examples-title{font-family:var(--f-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.ep-ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.emotion-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.em-card{border-radius:12px;padding:20px 22px}
+.em-card.tv{background:rgba(11,15,46,.07);border:1px solid rgba(11,15,46,.12)}
+.em-card.gl{background:rgba(0,212,204,.07);border:1px solid rgba(0,212,204,.2)}
+.em-card-label{font-family:var(--f-d);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.em-card-label.tv{color:var(--tv)}.em-card-label.gl{color:#006660}
+.em-card-emotion{font-family:var(--f-d);font-size:16px;font-weight:800;margin-bottom:6px}
+.em-card-body{font-size:13px;color:var(--muted);line-height:1.55}
+.theory-sidebar{position:sticky;top:88px}
+.sidebar-block{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+.sidebar-title{font-family:var(--f-d);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.source-item{padding:12px 14px;background:var(--cream);border-radius:8px;margin-bottom:8px;font-size:13px;line-height:1.5}.source-item:last-child{margin-bottom:0}
+.source-item strong{display:block;font-weight:700;color:var(--ink);margin-bottom:2px}.source-item span{color:var(--muted);font-style:italic}
+.key-terms{display:flex;flex-direction:column;gap:8px}
+.term{padding:10px 14px;border-left:3px solid var(--gold);background:rgba(201,168,76,.06);border-radius:0 8px 8px 0;font-size:13px;line-height:1.5}
+.term strong{display:block;font-weight:700;color:var(--ink);margin-bottom:2px;font-size:12px;font-family:var(--f-d);letter-spacing:.05em;text-transform:uppercase}.term span{color:var(--muted)}
+.other-themes{display:flex;flex-direction:column;gap:8px}
+.other-theme-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--ink);transition:all .2s}
+.other-theme-link:hover{border-color:var(--tv);background:rgba(11,15,46,.04)}
+.ot-icon{font-size:18px}.ot-title{font-family:var(--f-d);font-size:13px;font-weight:600}
+@media(max-width:900px){.theory-body-wrap{grid-template-columns:1fr}.theory-sidebar{position:static}.ep-ex-grid,.emotion-compare{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+<div class="theory-hero">
+  <div class="theory-hero-bg"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div id="back-btn-ph"></div>
+    <div class="theory-breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#study">Study</a> / <span>Emotional Impact</span></div>
+    <span class="theory-hero-label">Block 1 · Manipulation · Тема 4 из 5</span>
+    <h1>Emotional Impact</h1>
+    <div class="theory-hero-fairy">📖 Father Frost · 4 эпизода</div>
+    <p class="theory-hero-desc">Когда чувство приходит раньше факта, оно становится фильтром. Эмоция, которую вызывает материал, определяет, как читатель интерпретирует все последующие сведения.</p>
+    <nav class="theory-nav">
+      <a href="../theory-agenda.html" class="theory-nav-btn">📋 Agenda Setting</a>
+      <a href="../theory-framing.html" class="theory-nav-btn">🖼️ Framing</a>
+      <a href="../theory-narrative.html" class="theory-nav-btn">🦸 Narrative</a>
+      <a href="../theory-emotion.html" class="theory-nav-btn active">❤️ Эмоция</a>
+      <a href="../theory-source.html" class="theory-nav-btn">🎙️ Источник</a>
+    </nav>
+  </div>
+</div>
+<div class="container">
+  <div class="theory-body-wrap">
+    <div class="theory-text">
+      <h2>Почему эмоция важнее факта</h2>
+      <p>Исследования в области когнитивной психологии и медиакоммуникаций давно показали: эмоционально заряженные сообщения воспринимаются быстрее, запоминаются лучше и убеждают эффективнее, чем нейтральные. Лешек Войтасик в «Психологии политической пропаганды» (1981) описал этот механизм с точки зрения работы пропагандистского текста: эмоция создаёт предрасположенность, которая определяет интерпретацию всей последующей информации.</p>
+      <p>Пьер Бурдьё в «О телевидении» (1996) показал системный аспект этого явления: <em>телевидение систематически отдаёт предпочтение драматическим и эмоционально насыщенным материалам</em> — не потому что журналисты намеренно манипулируют, а потому что такие материалы получают больше внимания. Это структурный стимул, который формирует медиапространство в целом.</p>
+
+      <blockquote>
+        «Телевидение обращается к эмоциям, а не к разуму. Это не злонамеренность — это структурная особенность медиума, которая имеет политические последствия независимо от намерений.»
+        <cite>— Пьер Бурдьё, «О телевидении», 1996</cite>
+      </blockquote>
+
+      <h2>Как одно событие вызывает разные эмоции</h2>
+      <p>Ключевое наблюдение состоит в том, что эмоциональное воздействие медиатекста определяется не самим событием, а тем, <em>как оно подано</em>. Одни и те же факты могут вызвать умиление, тревогу, гордость или возмущение — в зависимости от того, какие детали выбирает редакция, какой тон задаёт ведущий и с какого момента начинается история.</p>
+
+      <div class="emotion-compare">
+        <div class="em-card tv">
+          <div class="em-card-label tv">The Royal Herald</div>
+          <div class="em-card-emotion">Умиление + вдохновение</div>
+          <div class="em-card-body">История Настеньки как образец терпения и вознаграждения. Тёплый тон, детали добра и щедрости, социальная реклама «замечайте таких людей».</div>
+        </div>
+        <div class="em-card gl">
+          <div class="em-card-label gl">The First Crier</div>
+          <div class="em-card-emotion">Тревога + беспокойство</div>
+          <div class="em-card-body">Та же история — через ребёнка в лесу в мороз двадцать градусов. Детали опасности, возраст героини, соседи которые знали и молчали.</div>
+        </div>
+      </div>
+
+      <h2>Father Frost: одна история — четыре эмоции</h2>
+      <p>В проекте четыре эпизода с Father Frost показывают, как одно и то же событие — девочка в зимнем лесу — вызывает принципиально разные эмоциональные реакции в зависимости от редакционного угла. Вестник в первых двух эпизодах работает через умиление и назидание — это тёплые, ободряющие эмоции, которые ведут к конкретному выводу о поведении. Глашатай работает через тревогу и вопрос — те же факты, другая эмоция, и в результате другой вывод.</p>
+      <p>Примечательно, что в эпизодах 15 и 16 оба издания переходят к Марфушеньке — и здесь Вестник использует лёгкое назидательное осуждение (каждый получает по заслугам), тогда как Глашатай переключает эмоцию: Марфушенька — тоже ребёнок, которого взрослый отправил в опасное место. Зритель, посмотревший оба выпуска, замечает, что его эмоциональная реакция на одних и тех же персонажей полностью изменилась.</p>
+
+      <div class="mechanism">
+        <div class="mechanism-title">Механизм эмоционального воздействия</div>
+        <div class="mech-step">
+          <div class="mech-num">1</div>
+          <div class="mech-text"><strong>Выбор «входной эмоции».</strong> Редакция решает, с какого чувства начинается история: с тревоги, с восхищения, с возмущения. Эта первая эмоция становится фоном для всего последующего.</div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-num">2</div>
+          <div class="mech-text"><strong>Детали усиливают эмоцию.</strong> «Девочка шла через лес» и «девочка шла через лес в двадцатиградусный мороз без еды и укрытия» — это один факт с разной эмоциональной насыщенностью.</div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-num">3</div>
+          <div class="mech-text"><strong>Эмоция становится фильтром.</strong> Читатель, уже испытывающий тревогу, интерпретирует последующие факты через эту тревогу. Читатель с умилением — через умиление.</div>
+        </div>
+        <div class="mech-step">
+          <div class="mech-num">4</div>
+          <div class="mech-text"><strong>Вывод следует из эмоции.</strong> «Хорошо всё закончилось» или «в следующий раз может не повезти» — оба вывода логичны, но только из разных эмоциональных состояний.</div>
+        </div>
+      </div>
+
+      <h2>Смена объекта эмпатии</h2>
+      <p>Один из самых сильных инструментов эмоционального воздействия — это не изменение фактов, а изменение того, <em>кому именно сочувствует читатель</em>. В историях с устоявшимися антагонистами (мачеха, волк, лиса) медиа могут переключить эмпатию с привычного объекта на неожиданный — и это полностью меняет эмоциональный смысл истории.</p>
+      <p>В эпизоде 16 Глашатай делает именно это: вместо того чтобы осуждать мачеху или жалеть Марфушеньку как следствие материнского решения, издание задаёт вопрос о самой Марфушеньке как ребёнке в уязвимой ситуации. Это та же история — но читатель, следивший за обоими выпусками, обнаруживает, что его симпатии сместились без его ведома.</p>
+
+      <div class="ep-examples">
+        <div class="ep-examples-title">Episodes по этой теме</div>
+        <div class="ep-ex-grid" id="epGrid"></div>
+      </div>
+    </div>
+    <aside class="theory-sidebar">
+      <div class="sidebar-block">
+        <div class="sidebar-title">Ключевые источники</div>
+        <div class="source-item"><strong>Войтасик Л. (1981)</strong><span>«Психология политической пропаганды» — Прогресс. Механизм эмоционального воздействия в убеждающей коммуникации.</span></div>
+        <div class="source-item"><strong>Бурдьё П. (1996)</strong><span>«О телевидении» — рус. пер. 2002. Структурные стимулы к эмоционализации медиаконтента.</span></div>
+        <div class="source-item"><strong>Новиков А.А. (2009)</strong><span>«Манипуляция эмоциями в СМИ» — применение эмоциональных механизмов в современной медиапрактике.</span></div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-title">Ключевые термины</div>
+        <div class="key-terms">
+          <div class="term"><strong>Эмоциональный фрейм</strong><span>Эмоциональная тональность материала, через которую читатель интерпретирует все факты.</span></div>
+          <div class="term"><strong>Смена объекта эмпатии</strong><span>Переключение читательского сочувствия с одного участника событий на другого.</span></div>
+          <div class="term"><strong>Эффект заражения</strong><span>Передача эмоционального состояния от медиатекста к читателю через конкретные детали и тон.</span></div>
+          <div class="term"><strong>Эмоция как фильтр</strong><span>Механизм, при котором первичная эмоциональная реакция определяет интерпретацию последующей информации.</span></div>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <div class="sidebar-title">Другие темы</div>
+        <div class="other-themes">
+          <a href="../theory-agenda.html" class="other-theme-link"><span class="ot-icon">📋</span><span class="ot-title">Agenda Setting</span></a>
+          <a href="../theory-framing.html" class="other-theme-link"><span class="ot-icon">🖼️</span><span class="ot-title">Framing</span></a>
+          <a href="../theory-narrative.html" class="other-theme-link"><span class="ot-icon">🦸</span><span class="ot-title">Narrative: hero and villain</span></a>
+          <a href="../theory-source.html" class="other-theme-link"><span class="ot-icon">🎙️</span><span class="ot-title">Source and Authority</span></a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+<div id="footer-ph"></div>
+<script>
+/* ── SHARED DATA ─────────────────────────────────────────────────────────── */
+
+const EPISODES = [
+  { id:1,  ch:'tv', block:'manip', theme:'agenda',    fairy:'Красная Шапочка', title:'В лесу снова неспокойно',                      desc:'Вестник освещает главное событие дня — волк задержан, все в безопасности.',                   dur:'~80 сек' },
+  { id:2,  ch:'gl', block:'manip', theme:'agenda',    fairy:'Красная Шапочка', title:'Девочку отправили одну',                       desc:'Глашатай задаёт вопрос, который никто не задал: почему ребёнок шёл один.',                  dur:'~80 сек' },
+  { id:3,  ch:'tv', block:'manip', theme:'agenda',    fairy:'Красная Шапочка', title:'Порядок в лесу восстановлен',                  desc:'Вестник закрывает повестку: дело закрыто, система сработала.',                              dur:'~75 сек' },
+  { id:4,  ch:'gl', block:'manip', theme:'agenda',    fairy:'Красная Шапочка', title:'Волков в лесу больше не считают',              desc:'Глашатай держит тему открытой: один волк — это ещё не конец истории.',                      dur:'~80 сек' },
+  { id:5,  ch:'tv', block:'manip', theme:'framing',   fairy:'Золушка',         title:'Принц нашёл своего человека',                  desc:'Бал как триумф монархии: принц проявил исключительную проницательность.',                   dur:'~80 сек' },
+  { id:6,  ch:'gl', block:'manip', theme:'framing',   fairy:'Золушка',         title:'Девушка сбежала с королевского бала',          desc:'Тот же бал — детективная история с загадкой и нарушением протокола.',                      dur:'~80 сек' },
+  { id:7,  ch:'tv', block:'manip', theme:'framing',   fairy:'Золушка',         title:'Туфелька нашла хозяйку',                      desc:'Поиск завершён, порядок восстановлен. Прочие обстоятельства несущественны.',                dur:'~75 сек' },
+  { id:8,  ch:'gl', block:'manip', theme:'framing',   fairy:'Золушка',         title:'Кто такая мачеха и почему молчали соседи?',    desc:'До счастливого конца были годы. Почему никто не вмешался раньше?',                         dur:'~80 сек' },
+  { id:9,  ch:'tv', block:'manip', theme:'narrative', fairy:'Три поросёнка',   title:'Строители устояли перед угрозой',              desc:'Трудолюбие победило: Наф-Наф предвидел угрозу и спас всех троих.',                         dur:'~80 сек' },
+  { id:10, ch:'gl', block:'manip', theme:'narrative', fairy:'Три поросёнка',   title:'Волк просто искал еду',                       desc:'Злодей или вытесненный? Это зависит от того, с чьей стороны смотреть.',                    dur:'~80 сек' },
+  { id:11, ch:'tv', block:'manip', theme:'narrative', fairy:'Три поросёнка',   title:'Урок на будущее: стройте надёжно',            desc:'Управа провела осмотр и выпускает новые нормативы. Репортаж с места.',                     dur:'~75 сек' },
+  { id:12, ch:'gl', block:'manip', theme:'narrative', fairy:'Три поросёнка',   title:'Почему двое из троих оказались не готовы?',   desc:'Дело не в лени: у Наф-Нафа был карьер рядом с участком, а у братьев — нет.',             dur:'~80 сек' },
+  { id:13, ch:'tv', block:'manip', theme:'emotion',   fairy:'Морозко',         title:'Трудолюбие вознаграждено',                    desc:'История Настеньки как напоминание: замечайте тех, кто тихо делает своё дело.',             dur:'~80 сек' },
+  { id:14, ch:'gl', block:'manip', theme:'emotion',   fairy:'Морозко',         title:'Девочку оставили в лесу одну',                desc:'За красивой историей — ребёнок без защитника в доме и мороз двадцать градусов.',           dur:'~80 сек' },
+  { id:15, ch:'tv', block:'manip', theme:'emotion',   fairy:'Морозко',         title:'Каждый получает по заслугам',                 desc:'Обе девушки встретили одного персонажа. Всё, что между ними разного — поведение.',          dur:'~75 сек' },
+  { id:16, ch:'gl', block:'manip', theme:'emotion',   fairy:'Морозко',         title:'Кто отправил Марфушеньку в лес?',             desc:'Марфушенька тоже ребёнок. Решение отправить её в мороз принял не она.',                   dur:'~80 сек' },
+  { id:17, ch:'tv', block:'manip', theme:'source',    fairy:'Иван-царевич',    title:'Царь повелел: младший сын достоин',           desc:'Указ подписан. Позиция братьев в официальном протоколе не отражена.',                      dur:'~80 сек' },
+  { id:18, ch:'gl', block:'manip', theme:'source',    fairy:'Иван-царевич',    title:'Старший наследник тоже претендовал',          desc:'Многие при дворе с указом не согласны. Просто вслух об этом не говорят.',                  dur:'~80 сек' },
+  { id:19, ch:'tv', block:'manip', theme:'source',    fairy:'Иван-царевич',    title:'Мудрец при дворе объяснил знамение',          desc:'Прохор Артемьевич — единственный признанный эксперт. Других не привлекали.',              dur:'~80 сек' },
+  { id:20, ch:'gl', block:'manip', theme:'source',    fairy:'Иван-царевич',    title:'А Баба-Яга предупреждала',                    desc:'При дворе ходят слухи: Иван выиграл не без помощи. Мы нашли того, кто был рядом.',        dur:'~80 сек' },
+  { id:21, ch:'gl', block:'fake',  theme:'whatfake',  fairy:'Колобок',         title:'Колобок пропал',                              desc:'Глашатай публикует срочную новость: один источник, лиса не опрошена, 47 минут.',           dur:'~80 сек' },
+  { id:22, ch:'tv', block:'fake',  theme:'whatfake',  fairy:'Колобок',         title:'Колобок нашёлся. И вот что это значит',       desc:'Вестник нашёл Колобка и разбирает: что именно не проверил Глашатай.',                      dur:'~80 сек' },
+  { id:23, ch:'gl', block:'fake',  theme:'whatfake',  fairy:'Колобок',         title:'Новые сведения по делу Колобка',              desc:'Глашатай добавляет второго свидетеля и анонимное письмо. Фейк обрастает.',                  dur:'~80 сек' },
+  { id:24, ch:'tv', block:'fake',  theme:'whatfake',  fairy:'Колобок',         title:'Почему история о Колобке всё ещё живёт',      desc:'Поправка не догоняет новость. Якорный эффект в действии.',                                 dur:'~80 сек' },
+  { id:25, ch:'tv', block:'fake',  theme:'sindbad',   fairy:'Синдбад',         title:'Синдбад предупреждает: восточный путь закрыт', desc:'Единственный очевидец, авторитетный мореход. Купцы уже меняют маршруты.',                 dur:'~80 сек' },
+  { id:26, ch:'gl', block:'fake',  theme:'sindbad',   fairy:'Синдбад',         title:'Синдбад видел змея. Мы задали несколько вопросов', desc:'Три капитана прошли тем же путём без происшествий. Что это значит?',                 dur:'~80 сек' },
+  { id:27, ch:'tv', block:'fake',  theme:'sindbad',   fairy:'Синдбад',         title:'Свидетели подтверждают: в проливе что-то есть', desc:'Звуки, порванные сети, рассказы отца. Ни один не видел существо лично.',                dur:'~80 сек' },
+  { id:28, ch:'gl', block:'fake',  theme:'sindbad',   fairy:'Синдбад',         title:'Купец Омар только что вернулся из Янтарного пролива', desc:'Прошёл тем же маршрутом. Никакого змея. Маршруты уже изменены.',               dur:'~85 сек' },
+];
+
+const THEMES = {
+  agenda:    { title:'Повестка дня',              icon:'📋', fairy:'Красная Шапочка', url:'theory-agenda.html',    block:'Блок 1 · Манипуляции' },
+  framing:   { title:'Фрейминг',                 icon:'🖼️', fairy:'Золушка',          url:'theory-framing.html',   block:'Блок 1 · Манипуляции' },
+  narrative: { title:'Нарратив: герой и злодей', icon:'🦸', fairy:'Три поросёнка',    url:'theory-narrative.html', block:'Блок 1 · Манипуляции' },
+  emotion:   { title:'Эмоциональное воздействие',icon:'❤️', fairy:'Морозко',          url:'theory-emotion.html',   block:'Блок 1 · Манипуляции' },
+  source:    { title:'Источник и авторитет',     icon:'🎙️', fairy:'Иван-царевич',     url:'theory-source.html',    block:'Блок 1 · Манипуляции' },
+};
+
+const SOURCES = [
+  { author:'Ильченко С.Н.', work:'Фейк в практике электронных СМИ (2018)', desc:'Основная типология фейков, критерии достоверности, визуальные и текстовые фейки. Медиаскоп.', tag:'fake' },
+  { author:'Ильченко С.Н.', work:'Фейк как социальный феномен (2019)', desc:'Социальные механизмы распространения дезинформации. Вестник СПбГУ.', tag:'fake' },
+  { author:'Ильченко С.Н.', work:'Критерии достоверности медиасообщений (2020)', desc:'Пять критериев проверки медиасообщения. СПбГУ.', tag:'fake' },
+  { author:'Wardle C.', work:'Fake News. It\'s Complicated (2017)', desc:'Семь типов информационного расстройства. First Draft — международный стандарт классификации.', tag:'fake' },
+  { author:'Wardle C. + Derakhshan H.', work:'Information Disorder (2017)', desc:'Доклад Совета Европы. Дезинформация как экосистема, а не отдельное явление.', tag:'fake' },
+  { author:'Vosoughi, Roy, Aral', work:'The Spread of True and False News Online (2018)', desc:'Ложные новости распространяются в 6 раз быстрее правдивых. Science, Vol. 359.', tag:'fake' },
+  { author:'Nickerson R.S.', work:'Confirmation Bias: A Ubiquitous Phenomenon (1998)', desc:'Предвзятость подтверждения как универсальный когнитивный феномен. Review of General Psychology.', tag:'fake' },
+  { author:'Sunstein C.', work:'#Republic: Divided Democracy (2017)', desc:'Эхо-камеры и информационные пузыри в цифровой среде. Princeton UP.', tag:'fake' },
+  { author:'Tandoc et al.', work:'Defining "Fake News" (2018)', desc:'Академическое определение фейка через шесть типов контента. Digital Journalism, Vol. 6.', tag:'fake' },
+  { author:'Фёдоров А.В.', work:'Медиаобразование: история, теория и методика (2007)', desc:'Медиаграмотность как образовательная дисциплина. Ростов-на-Дону.', tag:'both' },
+  { author:'McCombs & Shaw', work:'The Agenda-Setting Function of Mass Media (1972)', desc:'Основополагающая работа по теории повестки дня. Public Opinion Quarterly.', tag:'manip' },
+  { author:'Entman R.', work:'Framing: Toward Clarification of a Fractured Paradigm (1993)', desc:'Классическое определение фрейминга и его четыре функции. Journal of Communication.', tag:'manip' },
+  { author:'Hall S.', work:'Encoding/Decoding (1973)', desc:'Кодирование медиасообщений как всегда позиционированный акт. CCCS Birmingham.', tag:'manip' },
+  { author:'Lazarsfeld P.', work:'The People\'s Choice (1944)', desc:'Двухуровневая модель коммуникации и роль лидеров мнений. Columbia UP.', tag:'manip' },
+  { author:'Propp V.', work:'Морфология сказки (1928)', desc:'Структурный анализ сказочного нарратива — основа для понимания медийного нарратива.', tag:'manip' },
+  { author:'Barthes R.', work:'Introduction to the Structural Analysis of Narratives (1966)', desc:'Перенос нарративного анализа на медиатексты. Communications.', tag:'manip' },
+  { author:'Бурдьё П.', work:'О телевидении (1996)', desc:'Механизмы отбора информации, эмоционального воздействия и закрытия повестки. Рус. пер. 2002.', tag:'both' },
+  { author:'Войтасик Л.', work:'Психология политической пропаганды (1981)', desc:'Эмоциональные механизмы воздействия убеждающей коммуникации. Прогресс.', tag:'manip' },
+  { author:'Гофман И.', work:'Анализ фреймов (1974)', desc:'Фрейм как базовый когнитивный механизм интерпретации реальности. Рус. пер. 2004.', tag:'manip' },
+  { author:'Бодрийяр Ж.', work:'Симулякры и симуляция (1981)', desc:'Медиареальность как система знаков, оторванных от референтов. Рус. пер. 2015.', tag:'manip' },
+];
+
+/* ── SHARED COMPONENTS ───────────────────────────────────────────────────── */
+
+function renderNav(activePage) {
+  const links = [
+    { href:'index.html',    label:'Главная' },
+    { href:'archive.html',  label:'Эпизоды' },
+    { href:'index.html#study', label:'Для изучения' },
+    { href:'sources.html',  label:'Источники' },
+    { href:'channels.html', label:'Издания' },
+    { href:'teachers.html', label:'Педагогам' },
+    { href:'next.html',     label:'Далее' },
+  ];
+  return `
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">ТОЧНО <span class="ne">&nbsp;НЕ&nbsp;</span> НОВОСТИ</a>
+    <ul class="nav-links">
+      ${links.map(l=>`<li><a href="${l.href}"${activePage===l.label?' class="active"':''}>${l.label}</a></li>`).join('')}
+    </ul>
+    <div class="nav-right">
+      <div class="lang-sw">
+        <button class="lang-btn active" onclick="switchLang('ru')">РУС</button>
+        <button class="lang-btn" onclick="switchLang('en')">ENG</button>
+        <button class="lang-btn" onclick="switchLang('kz')">ҚАЗ</button>
+      </div>
+    </div>
+  </nav>`;
+}
+
+function renderFooter() {
+  return `
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">ТОЧНО <span class="ne">&nbsp;НЕ&nbsp;</span> НОВОСТИ</div>
+        <div class="footer-tagline">Просветительский медиапроект о медиаграмотности.<br>Сказки не врут — просто не договаривают.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Разделы</h4>
+        <a href="index.html">Главная</a>
+        <a href="archive.html">Архив эпизодов</a>
+        <a href="index.html#study">Для изучения</a>
+        <a href="sources.html">Источники</a>
+        <a href="channels.html">Об изданиях</a>
+        <a href="teachers.html">Педагогам</a>
+        <a href="next.html">Что будет далее</a>
+      </div>
+      <div class="footer-col">
+        <h4>Автор проекта</h4>
+        <a href="https://t.me/Satamirika" target="_blank">Полина · @Satamirika</a>
+        <a href="https://t.me/Satamirika" target="_blank">Написать в Telegram</a>
+        <a href="https://t.me/Satamirika" target="_blank">Предложить тему или сказку</a>
+        <br>
+        <h4 style="margin-top:16px;">Языки</h4>
+        <a href="en/index.html">English version</a>
+        <a href="kz/index.html">Қазақша нұсқасы</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Точно не новости · Полина · @Satamirika</span>
+      <span class="footer-copy">Проект создан в рамках образовательной программы ВШЭ Санкт-Петербург</span>
+    </div>
+  </footer>`;
+}
+
+function renderEpCard(ep) {
+  const chName = ep.ch==='tv' ? 'Тридевятый вестник' : 'Первый глашатай';
+  return `
+  <div class="card ep-card">
+    <div class="ep-head ${ep.ch}">
+      <span class="ep-ch ${ep.ch}">${chName}</span>
+      <span class="ep-num">Эп. ${ep.id}</span>
+    </div>
+    <div class="ep-body">
+      <div class="ep-title">${ep.title}</div>
+      <div class="ep-desc">${ep.desc}</div>
+      <div class="ep-dur">⏱ ${ep.dur} · 📖 ${ep.fairy}</div>
+    </div>
+  </div>`;
+}
+
+/* Back button for theory pages */
+function renderBackBtn(label, href) {
+  return `<a href="${href||'index.html#study'}" class="back-btn">← ${label||'Для изучения'}</a>`;
+}
+
+/* Language switcher */
+function switchLang(lang) {
+  const cur = (window.location.pathname.split('/').pop() || 'index.html').replace(/^$/, 'index.html');
+  const path = window.location.pathname;
+  const inEn = path.indexOf('/en/') > -1;
+  const inKz = path.indexOf('/kz/') > -1;
+
+  if (lang === 'ru') {
+    if (inEn || inKz) window.location.href = '../../' + cur;
+    return;
+  }
+  if (lang === 'en') {
+    if (inKz) window.location.href = '../en/' + cur;
+    else if (!inEn) window.location.href = 'en/' + cur;
+    return;
+  }
+  if (lang === 'kz') {
+    if (inEn) window.location.href = '../kz/' + cur;
+    else if (!inKz) window.location.href = 'kz/' + cur;
+    return;
+  }
+}
+  if (lang === 'en') {
+    if (isInSubfolder && window.location.pathname.includes('/kz/')) {
+      window.location.href = '../en/' + cur;
+    } else if (!isInSubfolder) {
+      window.location.href = 'en/' + cur;
+    }
+    return;
+  }
+  if (lang === 'kz') {
+    if (isInSubfolder && window.location.pathname.includes('/en/')) {
+      window.location.href = '../kz/' + cur;
+    } else if (!isInSubfolder) {
+      window.location.href = 'kz/' + cur;
+    }
+    return;
+  }
+}
+
+</script>
+<script>
+document.getElementById("nav-ph").innerHTML = renderNav("Для изучения");
+document.getElementById("back-btn-ph").innerHTML = renderBackBtn("Для изучения", "index.html#study");
+document.getElementById('footer-ph').innerHTML = renderFooter();
+document.getElementById('epGrid').innerHTML = EPISODES.filter(e=>e.theme==='emotion').map(renderEpCard).join('');
+</script>
+</body>
+</html>
