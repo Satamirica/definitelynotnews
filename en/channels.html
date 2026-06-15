@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outlets – Definitely Not News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.ch-hero{display:grid;grid-template-columns:1fr 1fr;min-height:60vh;padding-top:64px}
+.ch-hero-tv{background:var(--tv);padding:72px 56px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.ch-hero-gl{background:var(--gl);padding:72px 56px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.ch-bg-tv{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 30% 30%,rgba(255,180,0,.12) 0%,transparent 60%)}
+.ch-bg-gl{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 70% 30%,rgba(0,146,166,.1) 0%,transparent 60%)}
+.ch-hero-num{font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px;position:relative;z-index:1}
+.ch-hero-num.tv{color:rgba(255,180,0,.6)}
+.ch-hero-num.gl{color:rgba(0,146,166,.6)}
+.ch-hero-name{font-family:var(--f-d);font-size:clamp(24px,3.5vw,42px);font-weight:900;line-height:1.1;margin-bottom:16px;position:relative;z-index:1}
+.ch-hero-name.tv{color:var(--gold)}
+.ch-hero-name.gl{color:var(--cyan)}
+.ch-hero-tagline{font-size:15px;color:rgba(255,255,255,.5);max-width:360px;line-height:1.65;position:relative;z-index:1}
+.ch-sec{padding:80px 0;border-bottom:1px solid var(--border)}
+.ch-sec:last-child{border-bottom:none}
+.ch-sec-inner{display:grid;grid-template-columns:380px 1fr;gap:64px;align-items:start}
+.ch-sidebar-tv{background:var(--tv);border-radius:16px;padding:36px;position:sticky;top:88px}
+.ch-sidebar-gl{background:var(--gl);border-radius:16px;padding:36px;position:sticky;top:88px}
+.ch-sidebar-name{font-family:var(--f-d);font-size:18px;font-weight:900;margin-bottom:20px;line-height:1.2}
+.ch-sidebar-name.tv{color:var(--gold)}
+.ch-sidebar-name.gl{color:var(--cyan)}
+.ch-trait{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:4px}
+.ch-trait:last-child{border-bottom:none}
+.ch-trait-label{font-family:var(--f-d);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.ch-trait-val{font-size:14px;color:rgba(255,255,255,.75);line-height:1.5}
+.ch-trait-val.tv-a{color:var(--gold-lt)}
+.ch-trait-val.gl-a{color:var(--cyan-lt)}
+.ch-content h2{font-family:var(--f-d);font-size:26px;font-weight:800;margin:36px 0 14px;line-height:1.2}
+.ch-content h2:first-child{margin-top:0}
+.ch-content p{font-size:16px;line-height:1.8;color:#2E2E2E;margin-bottom:14px}
+.ch-content em{font-style:italic;font-weight:600}
+.ch-content em.tv{color:var(--tv)}
+.ch-content em.gl{color:#006660}
+.phrase-examples{margin:24px 0}
+.phrase-label{font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.phrase{border-left:3px solid var(--border);padding:12px 18px;font-size:15px;color:#2E2E2E;line-height:1.6;margin-bottom:8px;border-radius:0 8px 8px 0;background:var(--white)}
+.phrase.tv{border-left-color:var(--gold);background:rgba(255,180,0,.05)}
+.phrase.gl{border-left-color:var(--cyan);background:rgba(0,146,166,.05)}
+.ch-eps-title{font-family:var(--f-d);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:32px 0 14px}
+.ch-eps-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:900px){.ch-hero,.ch-sec-inner{grid-template-columns:1fr}.ch-sidebar-tv,.ch-sidebar-gl{position:static}.ch-eps-grid{grid-template-columns:1fr}.ch-hero-tv,.ch-hero-gl{padding:48px 24px}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+<div class="ch-hero">
+  <div class="ch-hero-tv"><div class="ch-bg-tv"></div><div class="ch-hero-num tv">Outlet 01</div><div class="ch-hero-name tv">The Royal<br>Herald</div><div class="ch-hero-tagline">Authoritative, confident, always knowing when a story should be closed and why right now is the perfect moment.</div></div>
+  <div class="ch-hero-gl" id="gl"><div class="ch-bg-gl"></div><div class="ch-hero-num gl">Outlet 02</div><div class="ch-hero-name gl">The First<br>Crier</div><div class="ch-hero-tagline">If a version of events already exists — what lies beyond its boundaries, and why?</div></div>
+</div>
+<section class="section">
+  <div class="container">
+    <div class="ch-sec" id="tv">
+      <div class="ch-sec-inner">
+        <div class="ch-sidebar-tv">
+          <div class="ch-sidebar-name tv">The Royal Herald</div>
+          <div class="ch-trait"><div class="ch-trait-label">Tone</div><div class="ch-trait-val tv-a">Authoritative, confident, ceremonial</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">Main sources</div><div class="ch-trait-val">Royal chancellery, official experts, forest guard</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">Typical structure</div><div class="ch-trait-val">Fact → official source → moral. Agenda closes.</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">What stays off camera</div><div class="ch-trait-val">Systemic questions, voices of those without official status</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">Tagline</div><div class="ch-trait-val tv-a">We inform. We don't alarm without reason.</div></div>
+        </div>
+        <div class="ch-content">
+          <h2>Who is The Royal Herald</h2>
+          <p>The Royal Herald is the official outlet. It relies on institutional sources and conveys the position of those who hold recognised authority. This is not a propaganda mouthpiece – it is a newsroom that sincerely believes the official version is the most credible and sees no reason to challenge it.</p>
+          <p>The Herald does not lie. It publishes what authoritative sources tell it, closes stories when institutions declare them closed, and chooses for its headlines those aspects of events that confirm the system is working. <em class="tv">This is honest journalism within a particular editorial logic.</em></p>
+          <h2>How the Herald speaks</h2>
+          <p>The Herald's language is confident and official, with references to archives and quotes from the chancellery. It never asks open questions – it states. Its stories end with a conclusion, not a question.</p>
+          <div class="phrase-examples">
+            <div class="phrase-label">Characteristic phrases</div>
+            <div class="phrase tv">"According to the royal chancellery, the situation is under control."</div>
+            <div class="phrase tv">"The Herald confirms: the decree has come into force. The matter is closed."</div>
+            <div class="phrase tv">"The Forest Guard assures us: such incidents are the exception, not the rule."</div>
+            <div class="phrase tv">"The incident is resolved. The agenda is closed."</div>
+          </div>
+          <h2>When the Herald makes mistakes</h2>
+          <p>In the fake news block, the Herald also makes mistakes – publishing a photograph without source verification, accepting indirect testimony as confirmation of a direct claim. When this comes to light, the Herald acknowledges the error and explains what went wrong. That is part of its character: institutional accountability.</p>
+          <div class="ch-eps-title">The Royal Herald episodes</div>
+          <div class="ch-eps-grid" id="tvEps"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ch-sec" id="gl-section">
+      <div class="ch-sec-inner">
+        <div class="ch-sidebar-gl">
+          <div class="ch-sidebar-name gl">The First Crier</div>
+          <div class="ch-trait"><div class="ch-trait-label">Tone</div><div class="ch-trait-val gl-a">Lively, questioning, occasionally ironic</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">Main sources</div><div class="ch-trait-val">Neighbours, witnesses, stable hands, passers-by, those not invited</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">Typical structure</div><div class="ch-trait-val">Question → detail → more detail → open question. Agenda stays open.</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">What stays off camera</div><div class="ch-trait-val">Official successes, working institutions, positive outcomes</div></div>
+          <div class="ch-trait"><div class="ch-trait-label">Tagline</div><div class="ch-trait-val gl-a">The Crier doesn't excuse. The Crier looks wider.</div></div>
+        </div>
+        <div class="ch-content">
+          <h2>Who is The First Crier</h2>
+          <p>The First Crier is the independent outlet that looks for what was left out of the official version. It is not an opposition pamphlet or an exposé machine – it is a newsroom with a different angle, one that believes the full picture requires other voices too.</p>
+          <p>The Crier asks questions not because it suspects the authorities of deception, but because that is its journalistic task – to look wider than official sources. <em class="gl">This is also honest journalism – within a different editorial logic.</em></p>
+          <h2>How the Crier speaks</h2>
+          <p>The Crier's language is lively, with specific details and the voices of real people. Its stories end with an open question or an observation the viewer must complete themselves. It does not close stories – it opens them.</p>
+          <div class="phrase-examples">
+            <div class="phrase-label">Characteristic phrases</div>
+            <div class="phrase gl">"We managed to find out: neighbours had been warning about this since last autumn."</div>
+            <div class="phrase gl">"The fox has not contacted the editorial team. The fate of the Bun has not been officially confirmed."</div>
+            <div class="phrase gl">"The question of who is on whose territory here is somewhat more complicated than it appears."</div>
+            <div class="phrase gl">"The First Crier continues to investigate."</div>
+          </div>
+          <h2>When the Crier makes mistakes</h2>
+          <p>In the fake news block it is the Crier that first publishes unverified information about the Round Bun – rushing, relying on a single source, presenting a version as a fact. This is a crucial part of the project: independence and critical perspective do not protect against mistakes. Good editorial practice is for everyone.</p>
+          <div class="ch-eps-title">The First Crier episodes</div>
+          <div class="ch-eps-grid" id="glEps"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="footer-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.getElementById('nav-ph').innerHTML = renderNav('Outlets');
+document.getElementById('footer-ph').innerHTML = renderFooter();
+document.getElementById('tvEps').innerHTML = EPISODES.filter(e=>e.ch==='tv').slice(0,8).map(renderEpCard).join('');
+document.getElementById('glEps').innerHTML = EPISODES.filter(e=>e.ch==='gl').slice(0,8).map(renderEpCard).join('');
+</script>
+</body>
+</html>

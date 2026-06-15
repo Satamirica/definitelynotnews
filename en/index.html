@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Definitely Not News – media literacy through fairy tales</title>
+<meta name="description" content="Educational media project on manipulation and fake news. One fairy tale – two outlets – two narratives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{min-height:100vh;background:var(--tv);display:flex;flex-direction:column;padding-top:64px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 50% at 15% 55%,rgba(255,180,0,.09) 0%,transparent 65%),radial-gradient(ellipse 40% 55% at 85% 25%,rgba(0,146,166,.07) 0%,transparent 65%)}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px}
+.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px 60px;position:relative;z-index:1}
+.hero-eyebrow{font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.hero-wordmark{font-family:var(--f-d);font-weight:900;line-height:.95;font-size:clamp(40px,8vw,96px);color:var(--white);margin-bottom:12px;letter-spacing:-.01em}
+.hero-wordmark .ne{color:var(--red);display:block}
+.hero-sub{font-family:var(--f-d);font-size:clamp(13px,1.5vw,16px);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:40px}
+.hero-desc{font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,.7);max-width:580px;line-height:1.65;margin-bottom:48px}
+.hero-desc em{font-style:normal;color:var(--gold-lt)}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.ch-strip-wrap{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.07);position:relative;z-index:1}
+.ch-strip{padding:22px 40px;display:flex;align-items:center;gap:16px;transition:background .2s;text-decoration:none}
+.ch-strip.tv{background:rgba(26,34,87,.5);border-right:1px solid rgba(255,255,255,.07)}
+.ch-strip.gl{background:rgba(18,18,18,.5)}
+.ch-strip:hover{background:rgba(255,255,255,.05)}
+.ch-strip-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.ch-strip-dot.tv{background:var(--gold)}
+.ch-strip-dot.gl{background:var(--cyan)}
+.ch-strip-name{font-family:var(--f-d);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ch-strip-name.tv{color:var(--gold)}
+.ch-strip-name.gl{color:var(--cyan)}
+.ch-strip-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.4;margin-top:2px}
+.ch-strip-arrow{margin-left:auto;color:rgba(255,255,255,.2);font-size:18px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about-visual{background:var(--tv);border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:0}
+.av-item{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:baseline;gap:16px}
+.av-item:last-child{border-bottom:none}
+.av-num{font-family:var(--f-d);font-size:38px;font-weight:900;color:var(--gold);line-height:1;flex-shrink:0;min-width:60px}
+.av-label{font-size:14px;color:rgba(255,255,255,.5);line-height:1.5}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:28px 24px}
+.how-n{font-family:var(--f-d);font-size:40px;font-weight:900;color:var(--border);line-height:1;margin-bottom:16px}
+.how-title{font-family:var(--f-d);font-size:16px;font-weight:700;margin-bottom:8px}
+.how-body{font-size:14px;color:var(--muted);line-height:1.65}
+.study-wrap{background:var(--tv)}
+.study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:48px}
+.study-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:28px 24px;transition:background .2s,transform .2s;cursor:pointer;display:block;text-decoration:none}
+.study-card:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+.study-icon{font-size:28px;margin-bottom:16px}
+.study-block{font-family:var(--f-d);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.study-title{font-family:var(--f-d);font-size:17px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.25}
+.study-fairy{font-size:13px;color:var(--gold);margin-bottom:10px}
+.study-body{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+.study-link{display:inline-block;margin-top:14px;font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border-bottom:1.5px solid rgba(255,180,0,.4);padding-bottom:2px}
+.tg-wrap{background:linear-gradient(135deg,#222323 0%,#2A2B2B 100%);border-top:1px solid rgba(255,255,255,.06)}
+.tg-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.tg-features{display:flex;flex-direction:column;gap:20px;margin-top:32px}
+.tg-feat{display:flex;gap:16px;align-items:flex-start}
+.tg-feat-icon{width:40px;height:40px;border-radius:10px;background:rgba(0,146,166,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tg-feat-title{font-family:var(--f-d);font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px}
+.tg-feat-body{font-size:13px;color:rgba(255,255,255,.45);line-height:1.55}
+.tg-mockup{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.tg-msg{display:flex;gap:10px;align-items:flex-start}
+.tg-msg.out{flex-direction:row-reverse}
+.tg-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:14px}
+.tg-bubble{background:rgba(255,255,255,.08);border-radius:12px;padding:10px 14px;font-size:13px;color:rgba(255,255,255,.8);line-height:1.55;max-width:75%}
+.tg-msg.out .tg-bubble{background:rgba(0,146,166,.15)}
+.tg-time{font-size:10px;color:rgba(255,255,255,.25);margin-top:4px}
+.next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:40px}
+.next-card{border:1.5px dashed var(--border);border-radius:14px;padding:24px;opacity:.7;transition:opacity .2s}
+.next-card:hover{opacity:1}
+.next-soon{font-family:var(--f-d);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.next-title{font-family:var(--f-d);font-size:16px;font-weight:700;margin-bottom:6px}
+.next-body{font-size:13.5px;color:var(--muted);line-height:1.6}
+.quiz-wrap{background:var(--gl)}
+.quiz-inner{max-width:760px;margin:0 auto;text-align:center}
+.quiz-card-wrap{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:44px;margin:40px 0 24px}
+.quiz-headline{font-family:var(--f-d);font-size:clamp(18px,3vw,26px);font-weight:700;color:var(--white);line-height:1.35;margin-bottom:32px;min-height:72px;display:flex;align-items:center;justify-content:center}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.quiz-opt{padding:16px 20px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);font-family:var(--f-d);font-size:13px;font-weight:700;letter-spacing:.06em;display:flex;align-items:center;gap:10px;transition:all .2s;cursor:pointer}
+.quiz-opt.tv-o{color:var(--gold)}
+.quiz-opt.gl-o{color:var(--cyan)}
+.quiz-opt:hover:not(:disabled){background:rgba(255,255,255,.1);transform:translateY(-1px)}
+.quiz-opt.correct{background:rgba(0,146,166,.14);border-color:var(--cyan)}
+.quiz-opt.wrong{background:rgba(192,57,43,.14);border-color:var(--red)}
+.quiz-opt:disabled{cursor:default;transform:none}
+.quiz-fb{background:rgba(255,255,255,.05);border-radius:10px;padding:18px 22px;text-align:left;font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;display:none}
+.quiz-fb.show{display:block}
+.quiz-fb strong{color:var(--white);display:block;margin-bottom:6px;font-size:15px}
+.quiz-meta{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.q-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s}
+.q-dot.done{background:var(--gold)}
+.q-dot.cur{background:var(--white)}
+.q-score{font-family:var(--f-d);font-size:12px;font-weight:600;color:rgba(255,255,255,.35)}
+.btn-qnext{font-family:var(--f-d);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:9px 18px;border:1px solid rgba(255,180,0,.35);border-radius:6px;transition:all .2s;display:none;margin-top:14px}
+.btn-qnext.show{display:inline-block}
+.btn-qnext:hover{background:rgba(255,180,0,.1)}
+.contact-wrap{background:var(--cream);border-top:1px solid var(--border)}
+.contact-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.contact-text h3{font-family:var(--f-d);font-size:22px;font-weight:800;margin-bottom:8px}
+.contact-text p{font-size:15px;color:var(--muted);max-width:440px;line-height:1.65}
+.contact-links{display:flex;gap:12px;flex-wrap:wrap}
+.contact-btn{display:flex;align-items:center;gap:8px;padding:13px 22px;border-radius:10px;font-family:var(--f-d);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
+.contact-btn.tg{background:#2AABEE;color:var(--white)}
+.contact-btn.tg:hover{background:#1a9bde}
+.contact-btn.suggest{background:var(--white);color:var(--ink);border:1.5px solid var(--border)}
+.contact-btn.suggest:hover{border-color:var(--ink)}
+@media(max-width:768px){.ch-strip-wrap,.about-grid,.how-grid,.tg-inner{grid-template-columns:1fr}.ch-strip.tv{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}.hero-inner{padding:60px 20px 48px}.ch-strip{padding:16px 20px}.quiz-opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Educational media project</div>
+    <h1 class="hero-wordmark">DEFINITELY<span class="ne">NOT</span>NEWS</h1>
+    <div class="hero-sub">One story · Two truths · See for yourself</div>
+    <p class="hero-desc">We take a <em>fairy tale</em> and tell it through two different outlets. Watch both episodes – and start seeing what you never noticed in any news.</p>
+    <div class="hero-ctas">
+      <a href="archive.html" class="btn btn-gold">Watch episodes</a>
+      <a href="#about" class="btn btn-ghost">How it works</a>
+    </div>
+  </div>
+  <div class="ch-strip-wrap">
+    <a href="channels.html#tv" class="ch-strip tv">
+      <div class="ch-strip-dot tv"></div>
+      <div>
+        <div class="ch-strip-name tv">The Royal Herald</div>
+        <div class="ch-strip-desc">Authoritative, confident, always knowing when a story should be closed and why right now is the perfect moment.</div>
+      </div>
+      <div class="ch-strip-arrow">→</div>
+    </a>
+    <a href="channels.html#gl" class="ch-strip gl">
+      <div class="ch-strip-dot gl"></div>
+      <div>
+        <div class="ch-strip-name gl">The First Crier</div>
+        <div class="ch-strip-desc">If a version of events already exists — what lies beyond its boundaries, and why?</div>
+      </div>
+      <div class="ch-strip-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="eyebrow">About</span>
+        <h2 class="display" style="margin-bottom:24px;">Fairy tales don't lie. They just leave things out.</h2>
+        <div class="lead">
+          <p>Definitely Not News is an educational media project about how manipulation works in media and how fake news spreads. Instead of real news we use fairy tales: everyone knows them, they don't trigger resistance, and they are built exactly like any media text.</p>
+          <p>The same fairy tale event is covered by two fictional outlets with different editorial positions. Neither of them lies outright. But each chooses its own angle, its own sources, its own way of speaking – and this changes everything.</p>
+        </div>
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="archive.html" class="btn btn-dark">All episodes</a>
+          <a href="channels.html" class="btn btn-ghost" style="color:var(--ink);border-color:var(--border);background:transparent;">About the outlets</a>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="av-item"><div class="av-num">20</div><div class="av-label">episodes on media manipulation based on Russian and world fairy tales</div></div>
+        <div class="av-item"><div class="av-num">8</div><div class="av-label">episodes on fake news – how they are created and how they spread</div></div>
+        <div class="av-item"><div class="av-num">1–1.5</div><div class="av-label">minutes per episode – vertical video format for any platform</div></div>
+        <div class="av-item"><div class="av-num">3</div><div class="av-label">languages – Russian, English, Kazakh</div></div>
+      </div>
+    </div>
+    <div style="margin-top:88px;">
+      <span class="eyebrow">How to watch</span>
+      <h2 class="display" style="margin-bottom:40px;font-size:clamp(26px,3.5vw,40px);">Three steps to media literacy</h2>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-n">01</div><div class="how-title">Watch both episodes</div><div class="how-body">Each episode pair covers the same fairy tale event. The Herald and the Crier release their takes on the same theme – watch both in sequence.</div></div>
+        <div class="how-card"><div class="how-n">02</div><div class="how-title">Look for the difference</div><div class="how-body">What details does each outlet choose? Who do they quote? What stays off camera? Don't ask "who is right" – ask "why do they tell it this way".</div></div>
+        <div class="how-card"><div class="how-n">03</div><div class="how-title">Apply to real life</div><div class="how-body">The skill practised on fairy tales works with any media text. The same techniques – agenda setting, framing, source selection – appear in every news story you read.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDY -->
+<section class="section study-wrap" id="study">
+  <div class="container">
+    <span class="eyebrow gold">Study</span>
+    <h2 class="display light" style="margin-bottom:16px;">How media manipulation works</h2>
+    <p class="lead light">Each project theme is based on a specific media influence mechanism. Choose a topic and read a detailed breakdown with episode examples, theoretical basis and sources.</p>
+    <div class="study-grid" id="studyGrid"></div>
+    <div style="text-align:center;margin-top:36px;"><a href="archive.html" class="btn btn-gold">Watch all episodes →</a></div>
+  </div>
+</section>
+
+<!-- TELEGRAM -->
+<section class="section tg-wrap" id="telegram">
+  <div class="container">
+    <div class="tg-inner">
+      <div>
+        <span class="eyebrow cyan">Telegram bot</span>
+        <h2 class="display light" style="margin-bottom:16px;font-size:clamp(26px,3.5vw,42px);">Quizzes and episode alerts on Telegram</h2>
+        <p class="lead light" style="max-width:480px;">After each new episode pair the bot sends a quiz. Check what you noticed – and what you missed.</p>
+        <div class="tg-features">
+          <div class="tg-feat"><div class="tg-feat-icon">🎬</div><div><div class="tg-feat-title">Episode announcements</div><div class="tg-feat-body">As soon as a new episode pair drops – the bot sends links to both at once.</div></div></div>
+          <div class="tg-feat"><div class="tg-feat-icon">🧪</div><div><div class="tg-feat-title">Quiz for each theme</div><div class="tg-feat-body">3–5 questions about what you noticed. Not "who is right" – but "what exactly happened".</div></div></div>
+          <div class="tg-feat"><div class="tg-feat-icon">💡</div><div><div class="tg-feat-title">Answer breakdown</div><div class="tg-feat-body">After the quiz the bot explains each question and points to the mechanism behind it.</div></div></div>
+        </div>
+        <div style="margin-top:32px;"><a href="https://t.me/tnn_quiz_bot" target="_blank" class="btn btn-cyan">Go to Telegram →</a></div>
+      </div>
+      <div class="tg-mockup">
+        <div class="tg-msg"><div class="tg-avatar">🤖</div><div><div class="tg-bubble">🎬 New episode pair is out!<br><br><strong>Theme: Agenda Setting</strong><br>Little Red Riding Hood · The Royal Herald and The First Crier<br><br>Watch both and come back for the quiz.</div><div class="tg-time">14:02</div></div></div>
+        <div class="tg-msg out"><div class="tg-avatar" style="background:var(--gold);color:var(--tv);">P</div><div><div class="tg-bubble">Watched both! Ready for the quiz 👀</div><div class="tg-time" style="text-align:right;">14:18</div></div></div>
+        <div class="tg-msg"><div class="tg-avatar">🤖</div><div><div class="tg-bubble">Question 1 of 4:<br><br>Which source did The Royal Herald cite in the first episode?<br><br>🔵 The Forest Guard<br>⚪ Neighbours at the forest edge<br>⚪ The woodcutters<br>⚪ The girl's mother</div><div class="tg-time">14:18</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMING UP -->
+<section class="section" id="next">
+  <div class="container">
+    <span class="eyebrow">Coming up</span>
+    <h2 class="display" style="margin-bottom:16px;font-size:clamp(26px,3.5vw,42px);">Project roadmap</h2>
+    <p class="lead" style="margin-bottom:0;">The project is actively developing. Here is what is planned in the near future.</p>
+    <div class="next-grid">
+      <div class="next-card"><div class="next-soon">Soon</div><div class="next-title">Fake news block – 8 episodes</div><div class="next-body">Two mini-series: The Round Bun (unverified source and anchoring effect) and Sinbad (unverifiable threat and authority as proof substitute).</div></div>
+      <div class="next-card"><div class="next-soon">Already live</div><div class="next-title">Telegram bot with quizzes</div><div class="next-body">Automatic episode alerts, theme quizzes and answer breakdowns. Subscribe to @tnn_quiz_bot to hear about the launch first.</div></div>
+      <div class="next-card"><div class="next-soon">Planned</div><div class="next-title">Methodological materials</div><div class="next-body">Ready-made classroom assignments in PDF format – for educators who want to use the project in lessons.</div></div>
+      <div class="next-card"><div class="next-soon">Under discussion</div><div class="next-title">New themes and fairy tales</div><div class="next-body">Next themes: visual fakes, satire as a media technique, propaganda through entertainment. Suggest your fairy tale via Telegram.</div></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="background:var(--cream);border-top:1px solid var(--border);">
+  <div class="container">
+    <span class="eyebrow">Why fairy tales</span>
+    <h2 class="display" style="margin-bottom:24px;font-size:clamp(26px,3.5vw,42px);">The filter that doesn't work on fairy tales</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">
+      <div>
+        <p style="font-size:17px;line-height:1.8;color:#2E2E2E;margin-bottom:16px;">When you read a news story about a real event, you already know who you trust and who you double-check. That filter activates automatically — and prevents you from noticing what happens at the structural level: who got a voice, what became the headline, where the story begins and where the editorial team decided to end it.</p>
+        <p style="font-size:17px;line-height:1.8;color:#2E2E2E;margin-bottom:16px;">With a fairy tale, that filter doesn't work. You don't know in advance whose side to take, so you start noticing techniques rather than content. And those techniques, it turns out, are the same in the fairy-tale kingdom and in any real newsroom.</p>
+        <p style="font-size:17px;line-height:1.8;color:#2E2E2E;">Some episodes seem absurd at first. Then something similar turns up in a real news feed — and the absurdity suddenly stops feeling like a fairy-tale phenomenon.</p>
+      </div>
+      <div>
+        <div style="background:var(--tv);border-radius:16px;padding:36px;">
+          <div style="font-family:var(--f-d);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">Fairy tales in the project</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🐺</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Little Red Riding Hood</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Theme: Agenda Setting · 4 episodes</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">👠</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Cinderella</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Theme: Framing · 4 episodes</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🐷</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Three Little Pigs</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Theme: Narrative · 4 episodes</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">❄️</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Father Frost</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Theme: Emotional Impact · 4 episodes</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🔥</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Ivan Tsarevich</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Theme: Source and Authority · 4 episodes</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🥖</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">The Round Bun</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Block 2: What is fake news · 4 episodes</div></div></div>
+            <div style="padding:16px 0;display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🌊</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Sinbad</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Block 2: The unverifiable threat · 4 episodes</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="section-sm contact-wrap">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <h3>Contact Polina</h3>
+        <p>If you want to suggest a topic or fairy tale, discuss collaboration or ask a question about the project – write on Telegram. I reply to everyone.</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://t.me/Satamirika" target="_blank" class="contact-btn tg">@Satamirika</a>
+        <a href="https://t.me/Satamirika" target="_blank" class="contact-btn suggest">Suggest a topic →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<section class="section quiz-wrap" id="quiz">
+  <div class="container">
+    <div class="quiz-inner">
+      <span class="eyebrow cyan">Test yourself</span>
+      <h2 class="display light" style="font-size:clamp(26px,3.5vw,42px);margin-bottom:10px;">Whose outlet is this?</h2>
+      <p style="color:rgba(255,255,255,.45);font-size:15px;margin-bottom:0;">Read the headline and guess which outlet wrote it. Six questions – less than a minute.</p>
+      <div class="quiz-card-wrap">
+        <div class="quiz-headline" id="qHeadline"></div>
+        <div class="quiz-opts">
+          <button class="quiz-opt tv-o" id="qOptTV" onclick="qAnswer('tv')">◆ The Royal Herald</button>
+          <button class="quiz-opt gl-o" id="qOptGL" onclick="qAnswer('gl')">◈ The First Crier</button>
+        </div>
+        <div class="quiz-fb" id="qFb"></div>
+        <button class="btn-qnext" id="qNext" onclick="qNextQ()">Next →</button>
+      </div>
+      <div class="quiz-meta" id="qMeta"></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-ph"></div>
+
+<script src="shared.js"></script>
+<script>
+document.getElementById('nav-ph').innerHTML = renderNav('Home');
+document.getElementById('footer-ph').innerHTML = renderFooter();
+
+const studyData = [
+  { key:'agenda',    icon:'📋', block:'Block 1 · Manipulation', title:'Agenda Setting',           fairy:'📖 Little Red Riding Hood', body:'Media don\'t tell us what to think — they tell us what to think about. The choice of which event becomes the main story is already an editorial decision.' },
+  { key:'framing',   icon:'🖼️', block:'Block 1 · Manipulation', title:'Framing',                  fairy:'📖 Cinderella',             body:'The same fact can be presented as a triumph, a tragedy or a detective mystery. A frame is the invisible lens the editorial team puts on an event.' },
+  { key:'narrative', icon:'🦸', block:'Block 1 · Manipulation', title:'Narrative: hero & villain', fairy:'📖 Three Little Pigs',      body:'Every story needs a hero and a villain. Media assign these roles — and the assignment shapes how we understand the event before we even know the facts.' },
+  { key:'emotion',   icon:'❤️', block:'Block 1 · Manipulation', title:'Emotional Impact',          fairy:'📖 Father Frost',           body:'When a feeling arrives before a fact it becomes a filter. The emotion a piece triggers determines how we interpret everything that follows.' },
+  { key:'source',    icon:'🎙️', block:'Block 1 · Manipulation', title:'Source and Authority',     fairy:'📖 Ivan Tsarevich',         body:'Whoever gets the microphone sets the frame for the story. The choice of source is already an editorial position, even when the journalist doesn\'t realise it.' },
+];
+document.getElementById('studyGrid').innerHTML = studyData.map(t=>`
+  <a href="theory-${t.key}.html" class="study-card">
+    <div class="study-icon">${t.icon}</div>
+    <div class="study-block">${t.block}</div>
+    <div class="study-title">${t.title}</div>
+    <div class="study-fairy">${t.fairy}</div>
+    <div class="study-body">${t.body}</div>
+    <span class="study-link">Read more →</span>
+  </a>`).join('');
+
+const QD = [
+  { h:'"Order in the forest restored. The Forest Guard assures us: such incidents are the exception, not the rule."', a:'tv', fb:'A confident tone, reliance on an official source and a closed agenda — this is the voice of The Royal Herald. The First Crier would not have closed the story so quickly.' },
+  { h:'"Neighbours had been warning about this path since last autumn. The warning went unanswered."', a:'gl', fb:'The First Crier looks for those who were not asked: neighbours, witnesses, people without official status. The Herald relies on the chancellery, not the residents at the forest edge.' },
+  { h:'"The prince personally witnessed the match. The betrothal ceremony is scheduled. The royal family expresses satisfaction."', a:'tv', fb:'Official protocol, institutional source, satisfactory outcome — this is the language of The Herald. The circumstances of the ball remain off camera.' },
+  { h:'"We managed to find out: the last official census of predators was conducted seven years ago. There have been no scheduled patrols since."', a:'gl', fb:'"We managed to find out" — a characteristic phrase of The First Crier. It digs deeper than the official version and asks questions nobody asked officially.' },
+  { h:'"Ivan completed the assignment in exact accordance with the conditions. The decree has come into force. The matter is closed."', a:'tv', fb:'The phrase "the matter is closed" is the signature of The Herald. It works with institutional logic: the condition was met, the decision was made, the story is over.' },
+  { h:'"Baba Yaga met Ivan in person. The court sage quotes chronicles from three centuries ago. These represent two very different types of closeness to the event."', a:'gl', fb:'The First Crier notices what official sources leave unaddressed: whose knowledge is primary and whose is interpretive.' },
+];
+let qi=0,qs=0,qa=false;
+function qRender(){document.getElementById('qHeadline').innerHTML=`"${QD[qi].h}"`;document.getElementById('qFb').className='quiz-fb';document.getElementById('qNext').className='btn-qnext';['qOptTV','qOptGL'].forEach(id=>{const b=document.getElementById(id);b.disabled=false;b.className=id==='qOptTV'?'quiz-opt tv-o':'quiz-opt gl-o'});qa=false;qMeta()}
+function qAnswer(ch){if(qa)return;qa=true;const correct=ch===QD[qi].a;if(correct)qs++;document.getElementById('qOptTV').disabled=true;document.getElementById('qOptGL').disabled=true;document.getElementById(QD[qi].a==='tv'?'qOptTV':'qOptGL').classList.add('correct');if(!correct)document.getElementById(ch==='tv'?'qOptTV':'qOptGL').classList.add('wrong');const fb=document.getElementById('qFb');fb.innerHTML=`<strong>${correct?'✓ Correct!':'✗ Not quite.'}</strong>${QD[qi].fb}`;fb.classList.add('show');const nx=document.getElementById('qNext');nx.textContent=qi<QD.length-1?'Next →':`Score: ${qs+(correct?1:0)} of ${QD.length} · Start again`;nx.classList.add('show');qMeta()}
+function qNextQ(){if(qi<QD.length-1){qi++;qRender();}else{qi=0;qs=0;qRender();}}
+function qMeta(){document.getElementById('qMeta').innerHTML=QD.map((_,i)=>`<div class="q-dot ${i<qi?'done':i===qi?'cur':''}"></div>`).join('')+`<span class="q-score">${qs}/${QD.length}</span>`}
+qRender();
+</script>
+</body>
+</html>

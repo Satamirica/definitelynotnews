@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дәлемес жоқ жаңалықтар – ертегілер арқылы медиасауаттылық</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{min-height:100vh;background:var(--tv);display:flex;flex-direction:column;padding-top:64px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 50% at 15% 55%,rgba(255,180,0,.09) 0%,transparent 65%),radial-gradient(ellipse 40% 55% at 85% 25%,rgba(0,146,166,.07) 0%,transparent 65%)}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px}
+.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px 60px;position:relative;z-index:1}
+.hero-eyebrow{font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.hero-wordmark{font-family:var(--f-d);font-weight:900;line-height:.95;font-size:clamp(36px,7vw,88px);color:var(--white);margin-bottom:12px;letter-spacing:-.01em}
+.hero-wordmark .ne{color:var(--red);display:block}
+.hero-sub{font-family:var(--f-d);font-size:clamp(12px,1.5vw,15px);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:40px}
+.hero-desc{font-size:clamp(16px,2vw,20px);color:rgba(255,255,255,.7);max-width:580px;line-height:1.65;margin-bottom:48px}
+.hero-desc em{font-style:normal;color:var(--gold-lt)}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.ch-strip-wrap{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.07);position:relative;z-index:1}
+.ch-strip{padding:22px 40px;display:flex;align-items:center;gap:16px;transition:background .2s;text-decoration:none}
+.ch-strip.tv{background:rgba(26,34,87,.5);border-right:1px solid rgba(255,255,255,.07)}
+.ch-strip.gl{background:rgba(18,18,18,.5)}
+.ch-strip:hover{background:rgba(255,255,255,.05)}
+.ch-strip-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.ch-strip-dot.tv{background:var(--gold)}
+.ch-strip-dot.gl{background:var(--cyan)}
+.ch-strip-name{font-family:var(--f-d);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ch-strip-name.tv{color:var(--gold)}
+.ch-strip-name.gl{color:var(--cyan)}
+.ch-strip-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.4;margin-top:2px}
+.ch-strip-arrow{margin-left:auto;color:rgba(255,255,255,.2);font-size:18px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about-visual{background:var(--tv);border-radius:20px;padding:40px}
+.av-item{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:baseline;gap:16px}
+.av-item:last-child{border-bottom:none}
+.av-num{font-family:var(--f-d);font-size:38px;font-weight:900;color:var(--gold);line-height:1;flex-shrink:0;min-width:60px}
+.av-label{font-size:14px;color:rgba(255,255,255,.5);line-height:1.5}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:28px 24px}
+.how-n{font-family:var(--f-d);font-size:40px;font-weight:900;color:var(--border);line-height:1;margin-bottom:16px}
+.how-title{font-family:var(--f-d);font-size:16px;font-weight:700;margin-bottom:8px}
+.how-body{font-size:14px;color:var(--muted);line-height:1.65}
+.study-wrap{background:var(--tv)}
+.study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:48px}
+.study-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:28px 24px;transition:background .2s,transform .2s;display:block;text-decoration:none}
+.study-card:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+.study-icon{font-size:28px;margin-bottom:16px}
+.study-block{font-family:var(--f-d);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.study-title{font-family:var(--f-d);font-size:17px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.25}
+.study-fairy{font-size:13px;color:var(--gold);margin-bottom:10px}
+.study-body{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+.study-link{display:inline-block;margin-top:14px;font-family:var(--f-d);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border-bottom:1.5px solid rgba(255,180,0,.4);padding-bottom:2px}
+.contact-wrap{background:var(--cream);border-top:1px solid var(--border)}
+.contact-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.contact-text h3{font-family:var(--f-d);font-size:22px;font-weight:800;margin-bottom:8px}
+.contact-text p{font-size:15px;color:var(--muted);max-width:440px;line-height:1.65}
+.contact-links{display:flex;gap:12px;flex-wrap:wrap}
+.contact-btn{display:flex;align-items:center;gap:8px;padding:13px 22px;border-radius:10px;font-family:var(--f-d);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
+.contact-btn.tg{background:#2AABEE;color:var(--white)}
+.contact-btn.suggest{background:var(--white);color:var(--ink);border:1.5px solid var(--border)}
+.contact-btn.suggest:hover{border-color:var(--ink)}
+@media(max-width:768px){.ch-strip-wrap,.about-grid,.how-grid{grid-template-columns:1fr}.ch-strip.tv{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}.hero-inner{padding:60px 20px 48px}}
+</style>
+</head>
+<body>
+<div id="nav-ph"></div>
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Ағартушылық медиа жобасы</div>
+    <h1 class="hero-wordmark">ДӘЛЕМЕС<span class="ne">ЖОҚ</span>ЖАҢАЛЫҚТАР</h1>
+    <div class="hero-sub">Бір оқиға · Екі шындық · Өзің қара</div>
+    <p class="hero-desc">Біз <em>ертегі</em> аламыз да оны екі түрлі басылым арқылы айтамыз. Екі эпизодты да қараңыз – және ешқандай жаңалықта бұрын байқамаған нәрсені байқай бастайсыз.</p>
+    <div class="hero-ctas">
+      <a href="archive.html" class="btn btn-gold">Эпизодтарды қарау</a>
+      <a href="#about" class="btn btn-ghost">Қалай жұмыс істейді</a>
+    </div>
+  </div>
+  <div class="ch-strip-wrap">
+    <a href="channels.html#tv" class="ch-strip tv">
+      <div class="ch-strip-dot tv"></div>
+      <div><div class="ch-strip-name tv">Патша хабаршысы</div><div class="ch-strip-desc">Беделді, сенімді, тақырыпты қашан және неге жабу керектігін әрқашан білетін.</div></div>
+      <div class="ch-strip-arrow">→</div>
+    </a>
+    <a href="channels.html#gl" class="ch-strip gl">
+      <div class="ch-strip-dot gl"></div>
+      <div><div class="ch-strip-name gl">Бірінші жариялаушы</div><div class="ch-strip-desc">Оқиғаның нұсқасы бар болса — оның шегінен тыс не қалды және неге?</div></div>
+      <div class="ch-strip-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="eyebrow">Жоба туралы</span>
+        <h2 class="display" style="margin-bottom:24px;">Ертегілер өтірік айтпайды. Тек барлығын айтпайды.</h2>
+        <div class="lead">
+          <p>«Дәлемес жоқ жаңалықтар» – медиадағы манипуляциялардың қалай жұмыс істейтіні және фейктердің қалай таралатыны туралы білім беру медиа жобасы. Нақты жаңалықтардың орнына біз ертегілерді қолданамыз: оларды бәрі біледі, қарсылық тудырмайды және кез келген медиа мәтін сияқты жасалған.</p>
+          <p>Бір ертегі оқиғасын екі жасанды басылым әр түрлі редакциялық ұстаныммен жариялайды. Олардың ешқайсысы тікелей өтірік айтпайды. Бірақ әрқайсысы өз бұрышын, өз дереккөздерін, өз айту тәсілін таңдайды – және бұл барлығын өзгертеді.</p>
+        </div>
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="archive.html" class="btn btn-dark">Барлық эпизодтар</a>
+          <a href="channels.html" class="btn btn-ghost" style="color:var(--ink);border-color:var(--border);background:transparent;">Басылымдар туралы</a>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="av-item"><div class="av-num">20</div><div class="av-label">медиаманипуляция туралы эпизод – орыс және әлем ертегілері негізінде</div></div>
+        <div class="av-item"><div class="av-num">8</div><div class="av-label">фейктер туралы эпизод – олар қалай жасалады және қалай таралады</div></div>
+        <div class="av-item"><div class="av-num">1–1,5</div><div class="av-label">минут – әр эпизод, кез келген платформаға арналған тік бейне форматы</div></div>
+        <div class="av-item"><div class="av-num">3</div><div class="av-label">тіл – орыс, ағылшын, қазақ</div></div>
+      </div>
+    </div>
+    <div style="margin-top:88px;">
+      <span class="eyebrow">Қалай қарау керек</span>
+      <h2 class="display" style="margin-bottom:40px;font-size:clamp(26px,3.5vw,40px);">Медиасауаттылыққа үш қадам</h2>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-n">01</div><div class="how-title">Екі эпизодты да қараңыз</div><div class="how-body">Эпизодтың әр жұбы бір ертегіден бір оқиғаны баяндайды. Хабаршы мен Жариялаушы бір тақырып бойынша материал шығарады – екеуін де қатарынан қараңыз.</div></div>
+        <div class="how-card"><div class="how-n">02</div><div class="how-title">Айырмашылықты іздеңіз</div><div class="how-body">Әр басылым қандай егжей-тегжейлерді таңдайды? Кімді дәйексөз ретінде келтіреді? Не кадр сыртында қалады? «Кім дұрыс» деп сұрамаңыз – «неге олар дәл осылай айтады» деп сұраңыз.</div></div>
+        <div class="how-card"><div class="how-n">03</div><div class="how-title">Өмірге ауыстырыңыз</div><div class="how-body">Ертегілерде жаттыққан дағды кез келген медиа мәтінімен жұмыс істейді. Күн тәртібін белгілеу, фреймдеу, дереккөздерді таңдау – осы тәсілдер сіз күн сайын оқитын кез келген жаңалықта бар.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section study-wrap" id="study">
+  <div class="container">
+    <span class="eyebrow gold">Оқу үшін</span>
+    <h2 class="display light" style="margin-bottom:16px;">Медиаманипуляция қалай жұмыс істейді</h2>
+    <p class="lead light">Жобаның әр тақырыбы медиаәсердің нақты механизміне негізделген. Тақырып таңдаңыз – және эпизодтардан мысалдармен, теориялық базамен және дереккөздермен толық талдауды оқыңыз.</p>
+    <div class="study-grid" id="studyGrid"></div>
+    <div style="text-align:center;margin-top:36px;"><a href="archive.html" class="btn btn-gold">Барлық эпизодтарды қарау →</a></div>
+  </div>
+</section>
+
+
+<section class="section" style="background:var(--cream);border-top:1px solid var(--border);">
+  <div class="container">
+    <span class="eyebrow">Неге ертегілер</span>
+    <h2 class="display" style="margin-bottom:24px;font-size:clamp(26px,3.5vw,42px);">Ертегілерде жұмыс жасамайтын сүзгі</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">
+      <div>
+        <p style="font-size:17px;line-height:1.8;color:#2E2E2E;margin-bottom:16px;">Нақты оқиға туралы жаңалық мәтінін оқыған кезде, сіз кімге сенетінізді және кімді екі рет тексеретінізді жақсы білесіз. Бұл сүзгі автоматты түрде іске қосылады — және мәтіннің құрылымдық деңгейінде не болып жатқанын байқауға кедергі жасайды.</p>
+        <p style="font-size:17px;line-height:1.8;color:#2E2E2E;margin-bottom:16px;">Ертегімен бұл сүзгі жұмыс жасамайды. Сіз кімнің жағында болу керектігін алдын ала білмейсіз, сондықтан мазмұнды емес, тәсілдерді байқай бастайсыз. Ал тәсілдер, белгілі болғандай, Тридевятое патшалығында да, кез келген нақты редакцияда да бірдей.</p>
+        <p style="font-size:17px;line-height:1.8;color:#2E2E2E;">Кейбір эпизодтар алғашқыда абсурд болып көрінеді. Содан кейін нақты жаңалықтар лентасында ұқсас нәрсе пайда болады — және абсурд кенеттен тек ертегілік құбылыс болып сезілмейді.</p>
+      </div>
+      <div>
+        <div style="background:var(--tv);border-radius:16px;padding:36px;">
+          <div style="font-family:var(--f-d);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">Жобадағы ертегілер</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🐺</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Қызыл қалпақша</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Тақырып: Күн тәртібі · 4 эпизод</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">👠</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Күлқайда</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Тақырып: Фреймдеу · 4 эпизод</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🐷</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Үш торайша</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Тақырып: Нарратив · 4 эпизод</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">❄️</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Аяз ата</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Тақырып: Эмоциялық әсер · 4 эпизод</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🔥</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Иван патша ұлы</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">Тақырып: Дереккөз және беделі · 4 эпизод</div></div></div>
+            <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🥖</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Домалақ нан</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">2-блок: Фейк дегеніміз не · 4 эпизод</div></div></div>
+            <div style="padding:16px 0;display:flex;align-items:center;gap:14px;"><span style="font-size:22px;">🌊</span><div><div style="font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--white);">Синдбад</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;">2-блок: Тексерілмейтін қауіп · 4 эпизод</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sm contact-wrap">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <h3>Полинамен байланысу</h3>
+        <p>Тақырып немесе ертегі ұсынғыңыз келсе, ынтымақтастықты талқылағыңыз келсе немесе жоба туралы сұрақ қойғыңыз келсе – Telegram-да жазыңыз. Барлығына жауап беремін.</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://t.me/Satamirika" target="_blank" class="contact-btn tg">@Satamirika</a>
+        <a href="https://t.me/Satamirika" target="_blank" class="contact-btn suggest">Тақырып ұсыну →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-ph"></div>
+<script src="shared.js"></script>
+<script>
+document.getElementById('nav-ph').innerHTML = renderNav('Басты');
+document.getElementById('footer-ph').innerHTML = renderFooter();
+const studyData = [
+  { key:'agenda',    icon:'📋', block:'1-блок · Манипуляция', title:'Күн тәртібі',              fairy:'📖 Қызыл қалпақша', body:'Медиа не туралы ойлау керектігін емес, не туралы ойлау керектігін айтады. Қай оқиғаның басты болатынын таңдау — бұл редакциялық шешім.' },
+  { key:'framing',   icon:'🖼️', block:'1-блок · Манипуляция', title:'Фреймдеу',                 fairy:'📖 Күлқайда',       body:'Бір фактіні жеңіс, трагедия немесе детектив жұмбағы ретінде беруге болады. Фрейм — редакция оқиғаға кигізетін көзге көрінбейтін шыны.' },
+  { key:'narrative', icon:'🦸', block:'1-блок · Манипуляция', title:'Нарратив: батыр және зұлым',fairy:'📖 Үш торайша',   body:'Кез келген хикаяға батыр мен зұлым керек. Медиа рөлдер тағайындайды — және бұл тағайындау оқиғаны қалай түсінетінімізді анықтайды.' },
+  { key:'emotion',   icon:'❤️', block:'1-блок · Манипуляция', title:'Эмоциялық әсер',           fairy:'📖 Аяз ата',        body:'Сезім фактіден бұрын келгенде, ол сүзгіге айналады. Материал тудыратын эмоция кейінгі барлық фактілерді қалай түсінетінімізді анықтайды.' },
+  { key:'source',    icon:'🎙️', block:'1-блок · Манипуляция', title:'Дереккөз және беделі',     fairy:'📖 Иван патша ұлы', body:'Микрофон кімге берілсе — ол хикаяның шеңберін белгілейді. Дереккөзді таңдау — бұл редакциялық ұстаным, журналист мұны сезінсе де, сезінбесе де.' },
+];
+document.getElementById('studyGrid').innerHTML = studyData.map(t=>`<a href="theory-${t.key}.html" class="study-card"><div class="study-icon">${t.icon}</div><div class="study-block">${t.block}</div><div class="study-title">${t.title}</div><div class="study-fairy">${t.fairy}</div><div class="study-body">${t.body}</div><span class="study-link">Толығырақ оқу →</span></a>`).join('');
+</script>
+</body>
+</html>
